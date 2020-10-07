@@ -1,0 +1,37 @@
+{
+  "name": "@internet-of-people/examples",
+  "version": "3.3.1",
+  "private": true,
+  "author": {
+    "url": "https://iop.global/dsf",
+    "name": "Internet of People",
+    "email": "dev@iop-ventures.com"
+  },
+  "description": "",
+  "main": "./dist/main.js",
+  "repository": "https://github.com/internet-of-people/ts-examples",
+  "license": "GPL-3.0-or-later",
+  "typings": "./dist/main.d.ts",
+  "scripts": {
+    "build": "npm run build:src",
+    "build:src": "tsc -p . ",
+    "lint": "npm run lint:src",
+    "lint:src": "eslint -c ../../eslintrc.json --fix \"./src/**\"",
+    "clean": "rimraf dist && rimraf node_modules"
+  },
+  "dependencies": {
+    "@internet-of-people/sdk": "3.3.1",
+    "inquirer": "7.0.0",
+    "optional-js": "2.1.1",
+    "xdg-portable": "7.2.1"
+  },
+  "devDependencies": {
+    "@types/inquirer": "6.5.0",
+    "@types/node": "12.12.14",
+    "@typescript-eslint/eslint-plugin": "2.11.0",
+    "@typescript-eslint/parser": "2.11.0",
+    "eslint": "6.7.2",
+    "rimraf": "3.0.0",
+    "typescript": "3.8.3"
+  }
+}
