@@ -1,0 +1,34 @@
+{
+  "name": "@internet-of-people/ts-examples-coeus",
+  "version": "4.0.0",
+  "private": true,
+  "author": {
+    "url": "https://iop.global/dsf",
+    "name": "Internet of People",
+    "email": "dev@iop-ventures.com"
+  },
+  "description": "An example codebase for IOP Coeus",
+  "repository": "https://github.com/internet-of-people/ts-examples",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "build": "node build.js",
+    "start": "node ./lib/start.js",
+    "lint": "npm run lint:src",
+    "lint:src": "eslint -c eslintrc.json --fix \"./src/**\"",
+    "clean": "rimraf dist && rimraf node_modules"
+  },
+  "dependencies": {
+    "@rushstack/ts-command-line": "4.7.3",
+    "@internet-of-people/sdk": "4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "14.14.3",
+    "@typescript-eslint/eslint-plugin": "4.5.0",
+    "@typescript-eslint/parser": "4.5.0",
+    "@arkecosystem/crypto": "^2.6.31",
+    "eslint": "7.12.0",
+    "fs-extra": "9.0.1",
+    "rimraf": "3.0.2",
+    "typescript": "3.8.3"
+  }
+}

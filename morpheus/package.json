@@ -1,5 +1,5 @@
 {
-  "name": "@internet-of-people/examples",
+  "name": "@internet-of-people/ts-examples-morpheus",
   "version": "3.3.1",
   "private": true,
   "author": {
@@ -16,11 +16,11 @@
     "build": "npm run build:src",
     "build:src": "tsc -p . ",
     "lint": "npm run lint:src",
-    "lint:src": "eslint -c ../../eslintrc.json --fix \"./src/**\"",
+    "lint:src": "eslint -c eslintrc.json --fix \"./src/**\"",
     "clean": "rimraf dist && rimraf node_modules"
   },
   "dependencies": {
-    "@internet-of-people/sdk": "3.3.1",
+    "@internet-of-people/sdk": "3.3.2",
     "inquirer": "7.0.0",
     "optional-js": "2.1.1",
     "xdg-portable": "7.2.1"

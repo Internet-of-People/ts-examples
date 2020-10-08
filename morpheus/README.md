@@ -1,15 +1,13 @@
-# IoP DAC (Project Morpheus) SDK Examples
+# IOP DAC Examples
 
-This repository contains example codes how can IoP DAC be used.  Also, you can even test it via command line commands described below.
+This repository contains example codes how can IOP DAC be used.  Also, you can even test it via command line commands described below.
 
 ## Requirements
 
 - NodeJS 12
 - A running Hydra node. It can be local, testnet/devnet/mainnet.
 
-## Install
-
-Run in the root of the [morpheus-ts](https://github.com/Internet-of-People/morpheus-ts) project.
+## Install & Build
 
 ```bash
 $ npm install
