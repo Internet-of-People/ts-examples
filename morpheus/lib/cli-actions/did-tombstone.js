@@ -22,24 +22,24 @@ class DidTombstoneAction extends ts_command_line_1.CommandLineAction {
         });
     }
     onDefineParameters() {
-        this._vaultPath = common_1.vaultPathParameter(this);
-        this._gasPassphrase = common_1.gasPassphraseParameter(this);
-        this._didToTombstone = this.defineStringParameter({
+        this.vaultPath = common_1.vaultPathParameter(this);
+        this.gasPassphrase = common_1.gasPassphraseParameter(this);
+        this.didToTombstone = this.defineStringParameter({
             parameterLongName: '--did',
             argumentName: 'DID',
             description: 'The DID you\'d like to tombstone',
             required: true,
         });
-        this._signerKeyId = common_1.signerKeyIdParameter(this);
+        this.signerKeyId = common_1.signerKeyIdParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending tombstone did transaction with the following parameters:');
-            console.log(`Vault Path: ${this._vaultPath.value}`);
-            console.log(`DID to tombstone: ${this._didToTombstone.value}`);
-            console.log(`Signer KeyId: ${this._signerKeyId.value}`);
-            yield common_1.checkIfSenderHasEnoughHydras(this._gasPassphrase.value);
-            yield did_tombstone_1.didTombstone(this._vaultPath.value, new sdk_1.Crypto.Did(this._didToTombstone.value), sdk_1.Crypto.authenticationFromData(this._signerKeyId.value), this._gasPassphrase.value);
+            console.log(`Vault Path: ${this.vaultPath.value}`);
+            console.log(`DID to tombstone: ${this.didToTombstone.value}`);
+            console.log(`Signer KeyId: ${this.signerKeyId.value}`);
+            yield common_1.checkIfSenderHasEnoughHydras(this.gasPassphrase.value);
+            yield did_tombstone_1.didTombstone(this.vaultPath.value, new sdk_1.Crypto.Did(this.didToTombstone.value), sdk_1.Crypto.authenticationFromData(this.signerKeyId.value), this.gasPassphrase.value);
         });
     }
 }

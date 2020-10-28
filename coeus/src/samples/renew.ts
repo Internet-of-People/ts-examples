@@ -1,4 +1,4 @@
-import { Interfaces as ArkCryptoIf } from "@arkecosystem/crypto";
+import { Interfaces as ArkCryptoIf } from '@arkecosystem/crypto';
 import { Coeus, Crypto, getHostByNetwork, Layer1, Layer2, Network, NetworkConfig } from '@internet-of-people/sdk';
 
 const {
@@ -10,15 +10,15 @@ const {
   PrivateKey,
 } = Coeus;
 
-export const sendRenew = async (
+export const sendRenew = async(
   domain: string,
   expiresAtHeight: number,
-) => {
+): Promise<void> => {
   const network = Crypto.Coin.Hydra.Testnet;
   const unlockPassword = 'unlock_password';
   const phrase = 'include pear escape sail spy orange cute despair witness trouble sleep torch wire burst unable brass expose fiction drift clock duck oxygen aerobic already';
   const vault = Crypto.Vault.create(phrase, 'bip39_password', unlockPassword);
-  
+
   const hydraParameters = new Crypto.HydraParameters(network, 0);
   Crypto.HydraPlugin.rewind(vault, unlockPassword, hydraParameters);
 
@@ -44,7 +44,7 @@ export const sendRenew = async (
     ))
     .build(layer2Nonce);
   const signedOps = noncedOps.sign(multicipherPrivateKey);
-  
+
   const tx = new CoeusTxBuilder(network)
     .build(signedOps, secpPublicKey, layer1Nonce);
   const signer = new HydraSigner(secpPrivateKey);

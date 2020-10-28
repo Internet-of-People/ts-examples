@@ -22,14 +22,14 @@ class DidCreateAction extends ts_command_line_1.CommandLineAction {
         });
     }
     onDefineParameters() {
-        this._vaultPath = common_1.vaultPathParameter(this);
+        this.vaultPath = common_1.vaultPathParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Creating a DID with the following parameters:');
-            console.log(`Vault Path: ${this._vaultPath.value}`);
-            yield did_create_1.didCreate(this._vaultPath.value);
-            yield vault_dump_1.vaultLoadAndDump(this._vaultPath.value);
+            console.log(`Vault Path: ${this.vaultPath.value}`);
+            yield did_create_1.didCreate(this.vaultPath.value);
+            yield vault_dump_1.vaultLoadAndDump(this.vaultPath.value);
         });
     }
 }

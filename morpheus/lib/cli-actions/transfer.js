@@ -20,19 +20,19 @@ class TransferAction extends ts_command_line_1.CommandLineAction {
         });
     }
     onDefineParameters() {
-        this._fromPassphrase = this.defineStringParameter({
+        this.fromPassphrase = this.defineStringParameter({
             parameterLongName: '--from-passphrase',
             argumentName: 'FROM_PASSPHRASE',
             description: 'The wallet\'s passphrase from which you want to send the HYDs.',
             required: true,
         });
-        this._toAddress = this.defineStringParameter({
+        this.toAddress = this.defineStringParameter({
             parameterLongName: '--to',
             argumentName: 'TO',
             description: 'The address you\'d like to transfer from the genesis wallet.',
             required: true,
         });
-        this._amount = this.defineIntegerParameter({
+        this.amount = this.defineIntegerParameter({
             parameterLongName: '--amount',
             argumentName: 'AMOUNT',
             description: 'The amount in HYD you\'d like to transfer.',
@@ -42,10 +42,10 @@ class TransferAction extends ts_command_line_1.CommandLineAction {
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending transfer with the following parameters:');
-            console.log(`From: ${this._fromPassphrase.value}`);
-            console.log(`To: ${this._toAddress.value}`);
-            console.log(`Amount: ${this._amount.value} HYD`);
-            yield transfer_1.sendTransfer(this._fromPassphrase.value, this._toAddress.value, BigInt(this._amount.value));
+            console.log(`From: ${this.fromPassphrase.value}`);
+            console.log(`To: ${this.toAddress.value}`);
+            console.log(`Amount: ${this.amount.value} HYD`);
+            yield transfer_1.sendTransfer(this.fromPassphrase.value, this.toAddress.value, BigInt(this.amount.value));
         });
     }
 }

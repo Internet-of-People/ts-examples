@@ -20,13 +20,13 @@ class BeforeProofQueryExistenceAction extends ts_command_line_1.CommandLineActio
         });
     }
     onDefineParameters() {
-        this._contentId = this.defineStringParameter({
+        this.contentId = this.defineStringParameter({
             parameterLongName: '--content-id',
             argumentName: 'CONTENT_ID',
             description: 'The content id you\'d like to query. E.g. cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu2nKwH9gdr1AiFw',
             required: true,
         });
-        this._height = this.defineIntegerParameter({
+        this.height = this.defineIntegerParameter({
             parameterLongName: '--at-height',
             argumentName: 'AT_HEIGHT',
             description: 'Check existence at this height.',
@@ -36,9 +36,9 @@ class BeforeProofQueryExistenceAction extends ts_command_line_1.CommandLineActio
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Querying content id\'s existence:');
-            console.log(`Content Id: ${this._contentId.value}`);
-            console.log(`At height: ${this._height.value ? this._height.value : '-'}`);
-            yield proof_of_existence_query_existence_1.queryBeforeProofExistence(this._contentId.value, this._height.value);
+            console.log(`Content Id: ${this.contentId.value}`);
+            console.log(`At height: ${this.height.value ? this.height.value : '-'}`);
+            yield proof_of_existence_query_existence_1.queryBeforeProofExistence(this.contentId.value, this.height.value);
         });
     }
 }

@@ -22,22 +22,22 @@ class KeyAddAction extends ts_command_line_1.CommandLineAction {
         });
     }
     onDefineParameters() {
-        this._vaultPath = common_1.vaultPathParameter(this);
-        this._gasPassphrase = common_1.gasPassphraseParameter(this);
-        this._keyIdToAdd = this.defineStringParameter({
+        this.vaultPath = common_1.vaultPathParameter(this);
+        this.gasPassphrase = common_1.gasPassphraseParameter(this);
+        this.keyIdToAdd = this.defineStringParameter({
             parameterLongName: '--keyid',
             argumentName: 'KEYID',
             description: 'The keyid you\'d like to add to the did.',
             required: true,
         });
-        this._didToAdd = this.defineStringParameter({
+        this.didToAdd = this.defineStringParameter({
             parameterLongName: '--to-did',
             argumentName: 'TO_DID',
             description: 'The DID you add the keyid to.',
             required: true,
         });
-        this._signerKeyId = common_1.signerKeyIdParameter(this);
-        this._expiresAtHeight = this.defineIntegerParameter({
+        this.signerKeyId = common_1.signerKeyIdParameter(this);
+        this.expiresAtHeight = this.defineIntegerParameter({
             parameterLongName: '--expires-at-height',
             argumentName: 'EXPIRES_AT_HEIGHT',
             description: 'The height when this key has to be expired.',
@@ -47,13 +47,13 @@ class KeyAddAction extends ts_command_line_1.CommandLineAction {
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending add key transaction with the following parameters:');
-            console.log(`Vault Path: ${this._vaultPath.value}`);
-            console.log(`KeyId to add: ${this._keyIdToAdd.value}`);
-            console.log(`DID: ${this._didToAdd.value}`);
-            console.log(`Signer KeyId: ${this._signerKeyId.value}`);
-            console.log(`Expires at Height: ${this._expiresAtHeight.value}`);
-            yield common_1.checkIfSenderHasEnoughHydras(this._gasPassphrase.value);
-            yield key_add_1.keyAdd(this._vaultPath.value, sdk_1.Crypto.authenticationFromData(this._keyIdToAdd.value), new sdk_1.Crypto.Did(this._didToAdd.value), sdk_1.Crypto.authenticationFromData(this._signerKeyId.value), this._expiresAtHeight.value, this._gasPassphrase.value);
+            console.log(`Vault Path: ${this.vaultPath.value}`);
+            console.log(`KeyId to add: ${this.keyIdToAdd.value}`);
+            console.log(`DID: ${this.didToAdd.value}`);
+            console.log(`Signer KeyId: ${this.signerKeyId.value}`);
+            console.log(`Expires at Height: ${this.expiresAtHeight.value}`);
+            yield common_1.checkIfSenderHasEnoughHydras(this.gasPassphrase.value);
+            yield key_add_1.keyAdd(this.vaultPath.value, sdk_1.Crypto.authenticationFromData(this.keyIdToAdd.value), new sdk_1.Crypto.Did(this.didToAdd.value), sdk_1.Crypto.authenticationFromData(this.signerKeyId.value), this.expiresAtHeight.value, this.gasPassphrase.value);
         });
     }
 }

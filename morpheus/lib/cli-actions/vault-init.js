@@ -21,7 +21,7 @@ class VaultInitAction extends ts_command_line_1.CommandLineAction {
         });
     }
     onDefineParameters() {
-        this._at = this.defineStringParameter({
+        this.at = this.defineStringParameter({
             parameterLongName: '--at',
             argumentName: 'AT',
             description: 'The path where the vault is going to be saved.',
@@ -31,9 +31,9 @@ class VaultInitAction extends ts_command_line_1.CommandLineAction {
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Initializing vault with the following parameters:');
-            console.log(`At: ${this._at.value}`);
-            yield vault_init_1.vaultInit(this._at.value);
-            yield vault_dump_1.vaultLoadAndDump(this._at.value);
+            console.log(`At: ${this.at.value}`);
+            yield vault_init_1.vaultInit(this.at.value);
+            yield vault_dump_1.vaultLoadAndDump(this.at.value);
         });
     }
 }

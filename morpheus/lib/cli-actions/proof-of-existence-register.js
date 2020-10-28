@@ -21,20 +21,20 @@ class BeforeProofRegisterAction extends ts_command_line_1.CommandLineAction {
         });
     }
     onDefineParameters() {
-        this._contentId = this.defineStringParameter({
+        this.contentId = this.defineStringParameter({
             parameterLongName: '--content-id',
             argumentName: 'CONTENT_ID',
             description: 'The content id you\'d like to register. E.g. cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu2nKwH9gdr1AiFw',
             required: true,
         });
-        this._gasPassphrase = common_1.gasPassphraseParameter(this);
+        this.gasPassphrase = common_1.gasPassphraseParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending proof of existence registration with the following parameters:');
-            console.log(`Content Id: ${this._contentId.value}`);
-            yield common_1.checkIfSenderHasEnoughHydras(this._gasPassphrase.value);
-            yield proof_of_existence_register_1.sendRegisterBeforeProof(this._contentId.value, this._gasPassphrase.value);
+            console.log(`Content Id: ${this.contentId.value}`);
+            yield common_1.checkIfSenderHasEnoughHydras(this.gasPassphrase.value);
+            yield proof_of_existence_register_1.sendRegisterBeforeProof(this.contentId.value, this.gasPassphrase.value);
         });
     }
 }

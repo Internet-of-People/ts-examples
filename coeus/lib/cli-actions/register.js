@@ -17,14 +17,14 @@ class RegisterAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'register',
             summary: 'Registers a domain with the given data.',
-            documentation: 'Registers a domain with the given data.'
+            documentation: 'Registers a domain with the given data.',
         });
     }
     onDefineParameters() {
-        this._domain = common_1.domainParameter(this);
-        this._data = common_1.dataParameter(this);
-        this._expiresAtHeight = common_1.expiresAtHeightParameter(this);
-        this._registrationPolicy = this.defineChoiceParameter({
+        this.domain = common_1.domainParameter(this);
+        this.data = common_1.dataParameter(this);
+        this.expiresAtHeight = common_1.expiresAtHeightParameter(this);
+        this.registrationPolicy = this.defineChoiceParameter({
             parameterLongName: '--registration-policy',
             alternatives: ['owner', 'any'],
             description: 'TODO',
@@ -33,11 +33,11 @@ class RegisterAction extends ts_command_line_1.CommandLineAction {
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending domain registration with the following parameters:');
-            console.log(`- Domain: ${this._domain.value}`);
-            console.log(`- Registration Policy: ${this._registrationPolicy.value || 'Not specified'}`);
-            console.log(`- Data: ${this._data.value}`);
-            console.log(`- Expires at Height: ${this._expiresAtHeight.value}`);
-            yield register_1.sendRegister(this._domain.value, this._data.value, this._expiresAtHeight.value);
+            console.log(`- Domain: ${this.domain.value}`);
+            console.log(`- Registration Policy: ${this.registrationPolicy.value || 'Not specified'}`);
+            console.log(`- Data: ${this.data.value}`);
+            console.log(`- Expires at Height: ${this.expiresAtHeight.value}`);
+            yield register_1.sendRegister(this.domain.value, this.data.value, this.expiresAtHeight.value);
         });
     }
 }

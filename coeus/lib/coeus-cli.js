@@ -10,7 +10,7 @@ class CoeusCLI extends ts_command_line_1.CommandLineParser {
     constructor() {
         super({
             toolFilename: 'coeus',
-            toolDescription: 'Coeus CLI'
+            toolDescription: 'Coeus CLI',
         });
         this.addAction(new register_1.RegisterAction());
         this.addAction(new update_1.UpdateAction());

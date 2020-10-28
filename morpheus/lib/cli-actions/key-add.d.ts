@@ -1,11 +1,11 @@
 import { CommandLineAction } from "@rushstack/ts-command-line";
 export declare class KeyAddAction extends CommandLineAction {
-    private _vaultPath;
-    private _gasPassphrase;
-    private _keyIdToAdd;
-    private _didToAdd;
-    private _signerKeyId;
-    private _expiresAtHeight;
+    private vaultPath;
+    private gasPassphrase;
+    private keyIdToAdd;
+    private didToAdd;
+    private signerKeyId;
+    private expiresAtHeight;
     constructor();
     protected onDefineParameters(): void;
     protected onExecute(): Promise<void>;

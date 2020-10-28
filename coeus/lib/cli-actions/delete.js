@@ -17,17 +17,17 @@ class DeleteAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'delete',
             summary: 'Deletes a given domain.',
-            documentation: 'Deletes a given domain.'
+            documentation: 'Deletes a given domain.',
         });
     }
     onDefineParameters() {
-        this._domain = common_1.domainParameter(this);
+        this.domain = common_1.domainParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending domain deletion with the following parameters:');
-            console.log(`Domain: ${this._domain.value}`);
-            yield delete_1.sendDelete(this._domain.value);
+            console.log(`Domain: ${this.domain.value}`);
+            yield delete_1.sendDelete(this.domain.value);
         });
     }
 }

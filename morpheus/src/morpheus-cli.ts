@@ -16,7 +16,7 @@ export class MorpheusCLI extends CommandLineParser {
   public constructor() {
     super({
       toolFilename: 'morpheus',
-      toolDescription: 'Morpheus CLI'
+      toolDescription: 'Morpheus CLI',
     });
 
     this.addAction(new VaultInitAction());

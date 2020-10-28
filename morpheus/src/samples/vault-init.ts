@@ -3,7 +3,7 @@ import { Crypto } from '@internet-of-people/sdk';
 
 const unlockPassword = 'correct horse battery staple';
 
-export const vaultInit = async (path: string) => {
+export const vaultInit = async(path: string): Promise<void> => {
   const vault = Crypto.Vault.create(Crypto.Seed.demoPhrase(), '', unlockPassword);
   Crypto.MorpheusPlugin.rewind(vault, unlockPassword);
 

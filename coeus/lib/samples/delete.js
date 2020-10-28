@@ -11,23 +11,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const sdk_1 = require("@internet-of-people/sdk");
 const { CoeusTxBuilder, DomainName, HydraSigner, NoncedOperationsBuilder, UserOperation, PrivateKey, } = sdk_1.Coeus;
-const sdk_2 = require("@internet-of-people/sdk");
 exports.sendDelete = (domain) => __awaiter(void 0, void 0, void 0, function* () {
-    const network = sdk_2.Crypto.Coin.Hydra.Testnet;
+    const network = sdk_1.Crypto.Coin.Hydra.Testnet;
     const unlockPassword = 'unlock_password';
     // Note: this mnemonic is the new owner's one who got the domain transferred in transfer.ts
     const phrase = 'thumb agent inform iron text define merry pair caution inquiry chair blood extend empower range alone antique casual jazz manage ostrich length arrange become';
-    const vault = sdk_2.Crypto.Vault.create(phrase, 'bip39_password', unlockPassword);
-    const hydraParameters = new sdk_2.Crypto.HydraParameters(network, 0);
-    sdk_2.Crypto.HydraPlugin.rewind(vault, unlockPassword, hydraParameters);
-    const hydra = sdk_2.Crypto.HydraPlugin.get(vault, hydraParameters);
+    const vault = sdk_1.Crypto.Vault.create(phrase, 'bip39_password', unlockPassword);
+    const hydraParameters = new sdk_1.Crypto.HydraParameters(network, 0);
+    sdk_1.Crypto.HydraPlugin.rewind(vault, unlockPassword, hydraParameters);
+    const hydra = sdk_1.Crypto.HydraPlugin.get(vault, hydraParameters);
     const hydraPrivate = hydra.priv(unlockPassword);
     const secpPrivateKey = hydraPrivate.key(0).privateKey();
     const secpPublicKey = secpPrivateKey.publicKey();
     const multicipherPrivateKey = PrivateKey.fromSecp(secpPrivateKey);
     const multicipherPublicKey = multicipherPrivateKey.publicKey();
-    const networkConfig = sdk_2.NetworkConfig.fromUrl(sdk_2.getHostByNetwork(sdk_2.Network.LocalTestnet), 4703);
-    const layer1Api = yield sdk_2.Layer1.createApi(networkConfig);
+    const networkConfig = sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703);
+    const layer1Api = yield sdk_1.Layer1.createApi(networkConfig);
     // address is thPGZgTWACKgaPFFg7Ev59bUzoyeLehQqP
     const layer1Nonce = BigInt(yield layer1Api.getWalletNonce(hydra.pub.key(0).address)) + BigInt(1);
     const layer2Api = sdk_1.Layer2.createCoeusApi(networkConfig);

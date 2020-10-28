@@ -9,7 +9,7 @@ export class CoeusCLI extends CommandLineParser {
   public constructor() {
     super({
       toolFilename: 'coeus',
-      toolDescription: 'Coeus CLI'
+      toolDescription: 'Coeus CLI',
     });
 
     this.addAction(new RegisterAction());

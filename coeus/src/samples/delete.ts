@@ -1,5 +1,5 @@
-import { Interfaces as ArkCryptoIf } from "@arkecosystem/crypto";
-import { Coeus, Layer2 } from "@internet-of-people/sdk";
+import { Interfaces as ArkCryptoIf } from '@arkecosystem/crypto';
+import { Coeus, Crypto, getHostByNetwork, Layer1, Layer2, Network, NetworkConfig } from '@internet-of-people/sdk';
 
 const {
   CoeusTxBuilder,
@@ -10,17 +10,15 @@ const {
   PrivateKey,
 } = Coeus;
 
-import { Crypto, getHostByNetwork, Layer1, Network, NetworkConfig } from '@internet-of-people/sdk';
-
-export const sendDelete = async (
+export const sendDelete = async(
   domain: string,
-) => {
+): Promise<void> => {
   const network = Crypto.Coin.Hydra.Testnet;
   const unlockPassword = 'unlock_password';
   // Note: this mnemonic is the new owner's one who got the domain transferred in transfer.ts
   const phrase = 'thumb agent inform iron text define merry pair caution inquiry chair blood extend empower range alone antique casual jazz manage ostrich length arrange become';
   const vault = Crypto.Vault.create(phrase, 'bip39_password', unlockPassword);
-  
+
   const hydraParameters = new Crypto.HydraParameters(network, 0);
   Crypto.HydraPlugin.rewind(vault, unlockPassword, hydraParameters);
 
@@ -45,7 +43,7 @@ export const sendDelete = async (
     ))
     .build(layer2Nonce);
   const signedOps = noncedOps.sign(multicipherPrivateKey);
-  
+
   const tx = new CoeusTxBuilder(network)
     .build(signedOps, secpPublicKey, layer1Nonce);
   const signer = new HydraSigner(secpPrivateKey);

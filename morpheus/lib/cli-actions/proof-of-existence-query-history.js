@@ -20,7 +20,7 @@ class BeforeProofQueryHistoryAction extends ts_command_line_1.CommandLineAction 
         });
     }
     onDefineParameters() {
-        this._contentId = this.defineStringParameter({
+        this.contentId = this.defineStringParameter({
             parameterLongName: '--content-id',
             argumentName: 'CONTENT_ID',
             description: 'The content id you\'d like to query. E.g. cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu2nKwH9gdr1AiFw',
@@ -30,8 +30,8 @@ class BeforeProofQueryHistoryAction extends ts_command_line_1.CommandLineAction 
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Querying content id\'s existence:');
-            console.log(`Content Id: ${this._contentId.value}`);
-            yield proof_of_existence_query_history_1.queryBeforeProofHistory(this._contentId.value);
+            console.log(`Content Id: ${this.contentId.value}`);
+            yield proof_of_existence_query_history_1.queryBeforeProofHistory(this.contentId.value);
         });
     }
 }

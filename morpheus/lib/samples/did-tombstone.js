@@ -18,7 +18,7 @@ exports.didTombstone = (vaultPath, didToTombstone, signerKeyId, gasPassphrase) =
     const morpheusPlugin = sdk_1.Crypto.MorpheusPlugin.get(vault);
     const networkConfig = sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703);
     const layer1Api = yield sdk_1.Layer1.createApi(networkConfig);
-    const layer2Api = sdk_1.Layer2.createApi(networkConfig);
+    const layer2Api = sdk_1.Layer2.createMorpheusApi(networkConfig);
     const lastTxId = yield layer2Api.getLastTxId(didToTombstone);
     const opAttempts = new sdk_1.Layer1.OperationAttemptsBuilder()
         .signWith(morpheusPlugin.priv(unlockPassword))

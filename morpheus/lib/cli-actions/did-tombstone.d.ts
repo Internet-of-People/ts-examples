@@ -1,9 +1,9 @@
 import { CommandLineAction } from "@rushstack/ts-command-line";
 export declare class DidTombstoneAction extends CommandLineAction {
-    private _vaultPath;
-    private _gasPassphrase;
-    private _didToTombstone;
-    private _signerKeyId;
+    private vaultPath;
+    private gasPassphrase;
+    private didToTombstone;
+    private signerKeyId;
     constructor();
     protected onDefineParameters(): void;
     protected onExecute(): Promise<void>;

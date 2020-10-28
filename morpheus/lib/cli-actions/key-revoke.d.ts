@@ -1,10 +1,10 @@
 import { CommandLineAction } from "@rushstack/ts-command-line";
 export declare class KeyRevokeAction extends CommandLineAction {
-    private _vaultPath;
-    private _gasPassphrase;
-    private _keyIdToRevoke;
-    private _didFromRevoke;
-    private _signerKeyId;
+    private vaultPath;
+    private gasPassphrase;
+    private keyIdToRevoke;
+    private didFromRevoke;
+    private signerKeyId;
     constructor();
     protected onDefineParameters(): void;
     protected onExecute(): Promise<void>;

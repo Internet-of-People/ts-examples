@@ -22,31 +22,31 @@ class RightAddAction extends ts_command_line_1.CommandLineAction {
         });
     }
     onDefineParameters() {
-        this._vaultPath = common_1.vaultPathParameter(this);
-        this._gasPassphrase = common_1.gasPassphraseParameter(this);
-        this._keyIdToAdd = this.defineStringParameter({
+        this.vaultPath = common_1.vaultPathParameter(this);
+        this.gasPassphrase = common_1.gasPassphraseParameter(this);
+        this.keyIdToAdd = this.defineStringParameter({
             parameterLongName: '--keyid',
             argumentName: 'KEYID',
             description: 'The keyid you\'d like to add to the right.',
             required: true,
         });
-        this._onDid = this.defineStringParameter({
+        this.onDid = this.defineStringParameter({
             parameterLongName: '--on-did',
             argumentName: 'ON_DID',
             description: 'The DID that has the key which you add the right to.',
             required: true,
         });
-        this._signerKeyId = common_1.signerKeyIdParameter(this);
+        this.signerKeyId = common_1.signerKeyIdParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending add right transaction with the following parameters:');
-            console.log(`Vault Path: ${this._vaultPath.value}`);
-            console.log(`KeyId to add: ${this._keyIdToAdd.value}`);
-            console.log(`DID: ${this._onDid.value}`);
-            console.log(`Signer KeyId: ${this._signerKeyId.value}`);
-            yield common_1.checkIfSenderHasEnoughHydras(this._gasPassphrase.value);
-            yield right_add_1.rightAdd(this._vaultPath.value, sdk_1.Crypto.authenticationFromData(this._keyIdToAdd.value), new sdk_1.Crypto.Did(this._onDid.value), sdk_1.Crypto.authenticationFromData(this._signerKeyId.value), this._gasPassphrase.value);
+            console.log(`Vault Path: ${this.vaultPath.value}`);
+            console.log(`KeyId to add: ${this.keyIdToAdd.value}`);
+            console.log(`DID: ${this.onDid.value}`);
+            console.log(`Signer KeyId: ${this.signerKeyId.value}`);
+            yield common_1.checkIfSenderHasEnoughHydras(this.gasPassphrase.value);
+            yield right_add_1.rightAdd(this.vaultPath.value, sdk_1.Crypto.authenticationFromData(this.keyIdToAdd.value), new sdk_1.Crypto.Did(this.onDid.value), sdk_1.Crypto.authenticationFromData(this.signerKeyId.value), this.gasPassphrase.value);
         });
     }
 }

@@ -1,9 +1,9 @@
 import { getHostByNetwork, Layer1, Network, NetworkConfig } from '@internet-of-people/sdk';
 
-export const sendRegisterBeforeProof = async (
+export const sendRegisterBeforeProof = async(
   contentId: string,
   passphrase: string,
-) => {
+): Promise<void> => {
   const opAttempts = new Layer1.OperationAttemptsBuilder()
     .registerBeforeProof(contentId)
     .getAttempts();

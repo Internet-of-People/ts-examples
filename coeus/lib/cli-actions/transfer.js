@@ -17,17 +17,17 @@ class TransferAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'transfer',
             summary: 'Transfers the given domain to the given principal.',
-            documentation: 'Transfers the given domain to the given principal.'
+            documentation: 'Transfers the given domain to the given principal.',
         });
     }
     onDefineParameters() {
-        this._domain = common_1.domainParameter(this);
+        this.domain = common_1.domainParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending domain transfer with the following parameters:');
-            console.log(`Domain: ${this._domain.value}`);
-            yield transfer_1.sendTransfer(this._domain.value);
+            console.log(`Domain: ${this.domain.value}`);
+            yield transfer_1.sendTransfer(this.domain.value);
         });
     }
 }

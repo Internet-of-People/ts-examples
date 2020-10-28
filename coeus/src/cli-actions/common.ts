@@ -1,4 +1,4 @@
-import { CommandLineAction, CommandLineIntegerParameter, CommandLineStringParameter } from "@rushstack/ts-command-line";
+import { CommandLineAction, CommandLineIntegerParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 
 export const principalParameter = (ref: CommandLineAction, cliFlag: string): CommandLineStringParameter => {
   return ref.defineStringParameter({

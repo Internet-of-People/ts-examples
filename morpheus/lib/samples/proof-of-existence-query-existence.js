@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const sdk_1 = require("@internet-of-people/sdk");
 exports.queryBeforeProofExistence = (contentId, height) => __awaiter(void 0, void 0, void 0, function* () {
-    const api = sdk_1.Layer2.createApi(sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703));
+    const api = sdk_1.Layer2.createMorpheusApi(sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703));
     const exists = yield api.beforeProofExists(contentId, height);
     console.log(`Content Id '${contentId}' exists: ${exists}`);
 });

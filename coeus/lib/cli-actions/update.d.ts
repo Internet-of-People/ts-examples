@@ -1,7 +1,7 @@
-import { CommandLineAction } from "@rushstack/ts-command-line";
+import { CommandLineAction } from '@rushstack/ts-command-line';
 export declare class UpdateAction extends CommandLineAction {
-    private _domain;
-    private _data;
+    private domain;
+    private data;
     constructor();
     protected onDefineParameters(): void;
     protected onExecute(): Promise<void>;
