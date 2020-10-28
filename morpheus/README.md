@@ -1,6 +1,8 @@
-# IOP DAC Examples
+# IOP SSI (Project Morpheus) Examples
 
-This repository contains example codes how can IOP DAC be used.  Also, you can even test it via command line commands described below.
+This repository contains example codes how can IOP SSI be used.  Also, you can even test it via command line commands described below.
+
+The `src/samples` contains the actual code you'll need in your application, while the `src/cli-actions` contains code that requires by the cli code.
 
 ## Requirements
 
@@ -14,70 +16,98 @@ $ npm install
 $ npm run build
 ```
 
+## Run
+
+```bash
+# Get help
+$ ./morpheus.sh --help
+
+# Run an action
+$ ./morpheus.sh ACTION ACTION_PARAMETERS
+```
+
+### Recommended Steps to Discover
+
+We recommend to follow these steps to discover how the SSI SDK really works.
+
+1. Transfer HYD
+1. Register a content id as a proof of existence
+1. Query a content id
+1. Query a content id's history
+1. Init Vault
+1. Create DID
+1. Add Key to a DID
+
 ## Available Commands
 
-### Vault
+### Init Vault
 
 ```bash
-# Init vault
-$ node . vault init
+$ ./morpheus.sh vault-init --at="/home/marvin/vault.dat"
 ```
+
+### Dump Vault
 
 ```bash
-# Created DID
-$ node . vault createId
+$ ./morpheus.sh vault-dump --at="/home/marvin/vault.dat"
 ```
+
+### Create DID
 
 ```bash
-# List
-$ node . vault list
+$ ./morpheus.sh did-create --vault-path="/home/marvin/vault.dat"
 ```
 
-### Key Management
+### Transfer HYD
 
 ```bash
-# Add Key
-$ node . key add
+$ ./morpheus.sh transfer --from-passphrase="YOUR_PASSPHRASE" --to="tYkupfpnXHR9xtvWowscsWhyxvJLafb8ik" --amount=10
 ```
+
+### Register Proof of Existence
 
 ```bash
-# Revoke Key
-$ node . key revoke
+$ ./morpheus.sh poe-register --content-id="cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu2nKwH9gdr1AiFa" --gas-passphrase="YOUR_PASSPHRASE"
 ```
 
-### Right Management
+### Query Proof of Existence
 
 ```bash
-# Add Right
-$ node . right add
+$ ./morpheus.sh poe-query --content-id="cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu2nKwH9gdr1AiFa" --at-height=42
 ```
+
+### Query Proof of Existence History
 
 ```bash
-# Revoke Right
-$ node . right revoke
+$ ./morpheus.sh poe-query-history --content-id="cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu2nKwH9gdr1AiFa"
 ```
 
-### DID Management
+### Add Key to a DID
 
 ```bash
-# Tombstone DID
-$ node . tombstone
+$ ./morpheus.sh key-add --vault-path="/home/marvin/vault.dat" --gas-passphrase="YOUR_PASSPHRASE" --keyid="iezxjqMH7vT8b8WFuKNSosYjo" --to-did="did:morpheus:ezqztJ6XX6GDxdSgdiySiT3J" --signer-keyid="iezqztJ6XX6GDxdSgdiySiT3J"
 ```
 
-### Before Proof
+### Revoke Key From a DID
 
 ```bash
-# Register a Content Id
-$ node . before-proof register
+$ ./morpheus.sh key-revoke --vault-path="/home/marvin/vault.dat" --gas-passphrase="YOUR_PASSPHRASE" --keyid="iezxjqMH7vT8b8WFuKNSosYjo" --from-did="did:morpheus:ezqztJ6XX6GDxdSgdiySiT3J" --signer-keyid="iezqztJ6XX6GDxdSgdiySiT3J"
 ```
 
-### Transfer
+### Add Right to a Key
 
 ```bash
-# Transfer Hydra from the Genesis Wallet
-$ node . transfer
+$ ./morpheus.sh right-add --vault-path="/home/marvin/vault.dat" --gas-passphrase="YOUR_PASSPHRASE" --keyid="iezxjqMH7vT8b8WFuKNSosYjo" --on-did="did:morpheus:ezqztJ6XX6GDxdSgdiySiT3J" --signer-keyid="iezqztJ6XX6GDxdSgdiySiT3J"
 ```
 
-## Check also
+### Revoke Right from a Key
 
-Please read about maintainers, contribution contract at <https://github.com/Internet-of-People/morpheus-ts>
+```bash
+$ ./morpheus.sh right-revoke --vault-path="/home/marvin/vault.dat" --gas-passphrase="YOUR_PASSPHRASE" --keyid="iezxjqMH7vT8b8WFuKNSosYjo" --on-did="did:morpheus:ezqztJ6XX6GDxdSgdiySiT3J" --signer-keyid="iezqztJ6XX6GDxdSgdiySiT3J"
+```
+
+### Tombstone DID
+
+```bash
+$ ./morpheus.sh did-tombstone --vault-path="/home/marvin/vault.dat" --gas-passphrase="YOUR_PASSPHRASE" --did="did:morpheus:ezqztJ6XX6GDxdSgdiySiT3J" --signer-keyid="iezqztJ6XX6GDxdSgdiySiT3J"
+```
