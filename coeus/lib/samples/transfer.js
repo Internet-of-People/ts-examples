@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const sdk_wasm_1 = require("@internet-of-people/sdk-wasm");
 const sdk_1 = require("@internet-of-people/sdk");
+const { CoeusTxBuilder, DomainName, HydraSigner, NoncedOperationsBuilder, Principal, PrivateKey, UserOperation, } = sdk_1.Coeus;
 exports.sendTransfer = (domain) => __awaiter(void 0, void 0, void 0, function* () {
     const network = sdk_1.Crypto.Coin.Hydra.Testnet;
     const unlockPassword = 'unlock_password';
@@ -23,7 +23,8 @@ exports.sendTransfer = (domain) => __awaiter(void 0, void 0, void 0, function* (
     const hydraPrivate = hydra.priv(unlockPassword);
     const secpPrivateKey = hydraPrivate.key(0).privateKey();
     const secpPublicKey = secpPrivateKey.publicKey();
-    const multicipherPrivateKey = sdk_wasm_1.PrivateKey.fromSecp(secpPrivateKey);
+    const multicipherPrivateKey = PrivateKey.fromSecp(secpPrivateKey);
+    const multicipherPublicKey = multicipherPrivateKey.publicKey();
     // NEW OWNER
     const phraseNewOwner = 'thumb agent inform iron text define merry pair caution inquiry chair blood extend empower range alone antique casual jazz manage ostrich length arrange become';
     const vaultNewOwner = sdk_1.Crypto.Vault.create(phraseNewOwner, 'bip39_password', unlockPassword);
@@ -31,18 +32,21 @@ exports.sendTransfer = (domain) => __awaiter(void 0, void 0, void 0, function* (
     const hydraNewOwner = sdk_1.Crypto.HydraPlugin.get(vaultNewOwner, hydraParameters);
     const hydraPrivateNewOwner = hydraNewOwner.priv(unlockPassword);
     const secpPrivateKeyNewOwner = hydraPrivateNewOwner.key(0).privateKey();
-    const multicipherPrivateKeyNewOwner = sdk_wasm_1.PrivateKey.fromSecp(secpPrivateKeyNewOwner);
+    const multicipherPrivateKeyNewOwner = PrivateKey.fromSecp(secpPrivateKeyNewOwner);
     const multicipherPublicKeyNewOwner = multicipherPrivateKeyNewOwner.publicKey();
-    const layer1Api = yield sdk_1.Layer1.createApi(sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703));
+    const networkConfig = sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703);
+    const layer1Api = yield sdk_1.Layer1.createApi(networkConfig);
     // address is tfGrjiGiL3Rs4etZw6SchqXt8JJ1VFzNHB
-    const currentNonce = yield layer1Api.getWalletNonce(hydra.pub.key(0).address);
-    const noncedOps = new sdk_wasm_1.NoncedOperationsBuilder()
-        .add(sdk_wasm_1.UserOperation.transfer(new sdk_wasm_1.DomainName(domain), sdk_wasm_1.Principal.publicKey(multicipherPublicKeyNewOwner.toString())))
-        .build(BigInt(4)); // TODO: coeus nonce
+    const layer1Nonce = BigInt(yield layer1Api.getWalletNonce(hydra.pub.key(0).address)) + BigInt(1);
+    const layer2Api = sdk_1.Layer2.createCoeusApi(networkConfig);
+    const layer2Nonce = BigInt(yield layer2Api.getLastNonce(multicipherPublicKey)) + BigInt(1);
+    const noncedOps = new NoncedOperationsBuilder()
+        .add(UserOperation.transfer(new DomainName(domain), Principal.publicKey(multicipherPublicKeyNewOwner)))
+        .build(layer2Nonce);
     const signedOps = noncedOps.sign(multicipherPrivateKey);
-    const tx = new sdk_wasm_1.CoeusTxBuilder(network)
-        .build(signedOps, secpPublicKey, BigInt(currentNonce) + BigInt(1));
-    const signer = new sdk_wasm_1.HydraSigner(secpPrivateKey);
+    const tx = new CoeusTxBuilder(network)
+        .build(signedOps, secpPublicKey, layer1Nonce);
+    const signer = new HydraSigner(secpPrivateKey);
     const signedTx = signer.signHydraTransaction(tx);
     const txId = yield layer1Api.sendTx(signedTx);
     console.log(`Register tx sent. Tx ID: ${txId}`);

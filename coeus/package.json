@@ -18,14 +18,14 @@
     "clean": "rimraf dist && rimraf node_modules"
   },
   "dependencies": {
-    "@rushstack/ts-command-line": "4.7.3",
-    "@internet-of-people/sdk": "4.0.0"
+    "@arkecosystem/crypto": "^2.6.31",
+    "@internet-of-people/sdk": "4.0.0",
+    "@rushstack/ts-command-line": "4.7.3"
   },
   "devDependencies": {
     "@types/node": "14.14.3",
     "@typescript-eslint/eslint-plugin": "4.5.0",
     "@typescript-eslint/parser": "4.5.0",
-    "@arkecosystem/crypto": "^2.6.31",
     "eslint": "7.12.0",
     "fs-extra": "9.0.1",
     "rimraf": "3.0.2",
