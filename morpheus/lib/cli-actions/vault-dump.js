@@ -16,7 +16,7 @@ class VaultDumpAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'vault-dump',
             summary: 'Dumps a vault at the location you provide.',
-            documentation: 'Dumps a vault at the location you provide.'
+            documentation: 'Dumps a vault at the location you provide.',
         });
     }
     onDefineParameters() {

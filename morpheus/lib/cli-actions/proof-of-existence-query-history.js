@@ -16,7 +16,7 @@ class BeforeProofQueryHistoryAction extends ts_command_line_1.CommandLineAction 
         super({
             actionName: 'poe-query-history',
             summary: 'Queries the given content id\'s history.',
-            documentation: 'Queries the given content id\'s history.'
+            documentation: 'Queries the given content id\'s history.',
         });
     }
     onDefineParameters() {

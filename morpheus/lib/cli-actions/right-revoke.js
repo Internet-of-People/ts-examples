@@ -18,7 +18,7 @@ class RightRevokeAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'right-revoke',
             summary: 'Revokes a right from a key on a DID.',
-            documentation: 'Revokes a right from a key on a DID.'
+            documentation: 'Revokes a right from a key on a DID.',
         });
     }
     onDefineParameters() {

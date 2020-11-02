@@ -14,6 +14,7 @@ exports.queryBeforeProofHistory = (contentId) => __awaiter(void 0, void 0, void 
     const api = sdk_1.Layer2.createMorpheusApi(sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703));
     const history = yield api.getBeforeProofHistory(contentId);
     console.log(`Content Id '${contentId}' history:`);
+    /* eslint-disable-next-line no-undefined */
     console.log(JSON.stringify(history, undefined, 2));
 });
 //# sourceMappingURL=proof-of-existence-query-history.js.map

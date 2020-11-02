@@ -5,7 +5,7 @@ const {
   CoeusTxBuilder,
   DomainName,
   HydraSigner,
-  NoncedOperationsBuilder,
+  NoncedBundleBuilder,
   Principal,
   PrivateKey,
   UserOperation,
@@ -28,16 +28,8 @@ export const sendTransfer = async(domain: string): Promise<void> => {
   const multicipherPrivateKey = PrivateKey.fromSecp(secpPrivateKey);
   const multicipherPublicKey = multicipherPrivateKey.publicKey();
 
-  // NEW OWNER
-  const phraseNewOwner = 'thumb agent inform iron text define merry pair caution inquiry chair blood extend empower range alone antique casual jazz manage ostrich length arrange become';
-  const vaultNewOwner = Crypto.Vault.create(phraseNewOwner, 'bip39_password', unlockPassword);
-  Crypto.HydraPlugin.rewind(vaultNewOwner, unlockPassword, hydraParameters);
-
-  const hydraNewOwner = Crypto.HydraPlugin.get(vaultNewOwner, hydraParameters);
-  const hydraPrivateNewOwner = hydraNewOwner.priv(unlockPassword);
-  const secpPrivateKeyNewOwner = hydraPrivateNewOwner.key(0).privateKey();
-  const multicipherPrivateKeyNewOwner = PrivateKey.fromSecp(secpPrivateKeyNewOwner);
-  const multicipherPublicKeyNewOwner = multicipherPrivateKeyNewOwner.publicKey();
+  // see the delete.ts as this key is the key from the wallet created there.
+  const newPublicKey = 'pszkrWygFdYDVWr6L2G1Mt84RQVaJoy8ixcGhjCxqKqAoYn';
 
   const networkConfig = NetworkConfig.fromUrl(getHostByNetwork(Network.LocalTestnet), 4703);
   const layer1Api = await Layer1.createApi(networkConfig);
@@ -47,10 +39,10 @@ export const sendTransfer = async(domain: string): Promise<void> => {
   const layer2Api = Layer2.createCoeusApi(networkConfig);
   const layer2Nonce = BigInt(await layer2Api.getLastNonce(multicipherPublicKey)) + BigInt(1);
 
-  const noncedOps = new NoncedOperationsBuilder()
+  const noncedOps = new NoncedBundleBuilder()
     .add(UserOperation.transfer(
       new DomainName(domain),
-      Principal.publicKey(multicipherPublicKeyNewOwner),
+      Principal.publicKey(new Coeus.PublicKey(newPublicKey)),
     ))
     .build(layer2Nonce);
   const signedOps = noncedOps.sign(multicipherPrivateKey);

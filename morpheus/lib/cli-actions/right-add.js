@@ -18,7 +18,7 @@ class RightAddAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'right-add',
             summary: 'Adds a right to a key on a DID.',
-            documentation: 'Adds a right to a key on a DID.'
+            documentation: 'Adds a right to a key on a DID.',
         });
     }
     onDefineParameters() {

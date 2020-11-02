@@ -18,7 +18,7 @@ class KeyRevokeAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'key-revoke',
             summary: 'Revokes a key from a DID.',
-            documentation: 'Revokes a key from a DID.'
+            documentation: 'Revokes a key from a DID.',
         });
     }
     onDefineParameters() {

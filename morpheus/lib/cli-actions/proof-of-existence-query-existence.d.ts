@@ -1,4 +1,4 @@
-import { CommandLineAction } from "@rushstack/ts-command-line";
+import { CommandLineAction } from '@rushstack/ts-command-line';
 export declare class BeforeProofQueryExistenceAction extends CommandLineAction {
     private contentId;
     private height;

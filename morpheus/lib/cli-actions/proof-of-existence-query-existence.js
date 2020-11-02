@@ -16,7 +16,7 @@ class BeforeProofQueryExistenceAction extends ts_command_line_1.CommandLineActio
         super({
             actionName: 'poe-query',
             summary: 'Queries if the given content id exists on the blockchain.',
-            documentation: 'Queries if the given content id exists on the blockchain.'
+            documentation: 'Queries if the given content id exists on the blockchain.',
         });
     }
     onDefineParameters() {

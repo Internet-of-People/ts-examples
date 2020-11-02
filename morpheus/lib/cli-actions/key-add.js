@@ -18,7 +18,7 @@ class KeyAddAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'key-add',
             summary: 'Adds a key to a DID.',
-            documentation: 'Adds a key to a DID.'
+            documentation: 'Adds a key to a DID.',
         });
     }
     onDefineParameters() {

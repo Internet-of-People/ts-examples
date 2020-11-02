@@ -17,7 +17,7 @@ class VaultInitAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'vault-init',
             summary: 'Initializes a vault at the location you provide.',
-            documentation: 'Initializes a vault at the location you provide.'
+            documentation: 'Initializes a vault at the location you provide.',
         });
     }
     onDefineParameters() {

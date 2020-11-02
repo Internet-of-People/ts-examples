@@ -18,7 +18,7 @@ class DidTombstoneAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'did-tombstone',
             summary: 'Tombstones a DID.',
-            documentation: 'Tombstones a DID.'
+            documentation: 'Tombstones a DID.',
         });
     }
     onDefineParameters() {

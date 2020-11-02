@@ -16,7 +16,7 @@ class TransferAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'transfer',
             summary: 'Transfers the given amount of HYDs to the given address.',
-            documentation: 'Transfers the given amount of HYDs to the given address.'
+            documentation: 'Transfers the given amount of HYDs to the given address.',
         });
     }
     onDefineParameters() {

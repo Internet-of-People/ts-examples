@@ -5,7 +5,7 @@ const {
   CoeusTxBuilder,
   DomainName,
   HydraSigner,
-  NoncedOperationsBuilder,
+  NoncedBundleBuilder,
   UserOperation,
   Principal,
   PrivateKey,
@@ -40,7 +40,7 @@ export const sendRegister = async(
   const layer2Api = Layer2.createCoeusApi(networkConfig);
   const layer2Nonce = BigInt(await layer2Api.getLastNonce(multicipherPublicKey)) + BigInt(1);
 
-  const noncedOps = new NoncedOperationsBuilder()
+  const noncedOps = new NoncedBundleBuilder()
     .add(UserOperation.register(
       new DomainName(domain),
       Principal.publicKey(multicipherPublicKey),

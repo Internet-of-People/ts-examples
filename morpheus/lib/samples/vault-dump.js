@@ -22,14 +22,14 @@ exports.vaultLoadAndDump = (path) => __awaiter(void 0, void 0, void 0, function*
     for (let i = 0; i < kind.count; ++i) {
         const pk = kind.key(i);
         const id = pk.keyId();
-        console.log(`  - ${i}: ${id}`);
+        console.log(`  - ${i}: ${id.toString()}`);
     }
     console.log('- DIDs:');
     for (let i = 0; i < kind.count; ++i) {
         const pk = kind.key(i);
         const id = pk.keyId();
         const did = sdk_1.Crypto.Did.fromKeyId(id);
-        console.log(`  - ${i}: ${did}`);
+        console.log(`  - ${i}: ${did.toString()}`);
     }
 });
 //# sourceMappingURL=vault-dump.js.map

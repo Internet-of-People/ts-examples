@@ -17,7 +17,7 @@ class BeforeProofRegisterAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'poe-register',
             summary: 'Registers the given content id on the blockchain as a proof of existence.',
-            documentation: 'Registers the given content id on the blockchain as a proof of existence.'
+            documentation: 'Registers the given content id on the blockchain as a proof of existence.',
         });
     }
     onDefineParameters() {

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sdk_1 = require("@internet-of-people/sdk");
-const { CoeusTxBuilder, DomainName, HydraSigner, NoncedOperationsBuilder, UserOperation, PrivateKey, } = sdk_1.Coeus;
+const { CoeusTxBuilder, DomainName, HydraSigner, NoncedBundleBuilder, UserOperation, PrivateKey, } = sdk_1.Coeus;
 exports.sendDelete = (domain) => __awaiter(void 0, void 0, void 0, function* () {
     const network = sdk_1.Crypto.Coin.Hydra.Testnet;
     const unlockPassword = 'unlock_password';
@@ -31,7 +31,7 @@ exports.sendDelete = (domain) => __awaiter(void 0, void 0, void 0, function* () 
     const layer1Nonce = BigInt(yield layer1Api.getWalletNonce(hydra.pub.key(0).address)) + BigInt(1);
     const layer2Api = sdk_1.Layer2.createCoeusApi(networkConfig);
     const layer2Nonce = BigInt(yield layer2Api.getLastNonce(multicipherPublicKey)) + BigInt(1);
-    const noncedOps = new NoncedOperationsBuilder()
+    const noncedOps = new NoncedBundleBuilder()
         .add(UserOperation.delete(new DomainName(domain)))
         .build(layer2Nonce);
     const signedOps = noncedOps.sign(multicipherPrivateKey);

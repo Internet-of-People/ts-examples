@@ -18,7 +18,7 @@ class DidCreateAction extends ts_command_line_1.CommandLineAction {
         super({
             actionName: 'did-create',
             summary: 'Creates a DID using the vault at the given location.',
-            documentation: 'Creates a DID using the vault at the given location.'
+            documentation: 'Creates a DID using the vault at the given location.',
         });
     }
     onDefineParameters() {

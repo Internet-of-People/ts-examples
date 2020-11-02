@@ -17,7 +17,7 @@ class MorpheusCLI extends ts_command_line_1.CommandLineParser {
     constructor() {
         super({
             toolFilename: 'morpheus',
-            toolDescription: 'Morpheus CLI'
+            toolDescription: 'Morpheus CLI',
         });
         this.addAction(new vault_init_1.VaultInitAction());
         this.addAction(new vault_dump_1.VaultDumpAction());

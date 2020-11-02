@@ -1,4 +1,4 @@
-import { CommandLineAction } from "@rushstack/ts-command-line";
+import { CommandLineAction } from '@rushstack/ts-command-line';
 export declare class BeforeProofRegisterAction extends CommandLineAction {
     private contentId;
     private gasPassphrase;
