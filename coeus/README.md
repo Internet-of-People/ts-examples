@@ -1,6 +1,6 @@
 # IOP Coeus Examples
 
-This repository contains example codes how can IOP DAC be used.  Also, you can even test it via command line commands described below.
+This repository contains example codes how can IOP DNS be used.  Also, you can even test it via command line commands described below.
 
 ## Requirements
 
