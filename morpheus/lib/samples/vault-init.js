@@ -14,7 +14,6 @@ const sdk_1 = require("@internet-of-people/sdk");
 const unlockPassword = 'correct horse battery staple';
 exports.vaultInit = (path) => __awaiter(void 0, void 0, void 0, function* () {
     const vault = sdk_1.Crypto.Vault.create(sdk_1.Crypto.Seed.demoPhrase(), '', unlockPassword);
-    sdk_1.Crypto.MorpheusPlugin.rewind(vault, unlockPassword);
     const serialized = JSON.stringify(vault.save());
     yield fs_1.promises.writeFile(path, serialized, { encoding: 'utf-8' });
 });
