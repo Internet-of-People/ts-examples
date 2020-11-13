@@ -3,6 +3,7 @@ export declare class TransferAction extends CommandLineAction {
     private fromPassphrase;
     private toAddress;
     private amount;
+    private network;
     constructor();
     protected onDefineParameters(): void;
     protected onExecute(): Promise<void>;

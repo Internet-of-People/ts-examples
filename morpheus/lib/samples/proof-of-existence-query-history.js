@@ -10,8 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sdk_1 = require("@internet-of-people/sdk");
-exports.queryBeforeProofHistory = (contentId) => __awaiter(void 0, void 0, void 0, function* () {
-    const api = sdk_1.Layer2.createMorpheusApi(sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703));
+const utils_1 = require("../utils");
+exports.queryBeforeProofHistory = (network, contentId) => __awaiter(void 0, void 0, void 0, function* () {
+    const networkConfig = utils_1.networkConfigFromNetwork(network);
+    const api = sdk_1.Layer2.createMorpheusApi(networkConfig);
     const history = yield api.getBeforeProofHistory(contentId);
     console.log(`Content Id '${contentId}' history:`);
     /* eslint-disable-next-line no-undefined */

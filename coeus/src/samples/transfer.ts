@@ -1,5 +1,6 @@
 import { Interfaces as ArkCryptoIf } from '@arkecosystem/crypto';
-import { Coeus, Crypto, getHostByNetwork, Layer1, Layer2, Network, NetworkConfig } from '@internet-of-people/sdk';
+import { Coeus, Crypto, Layer1, Layer2 } from '@internet-of-people/sdk';
+import { networkConfigFromNetwork, rustNetworkFromNetwork } from '../utils';
 
 const {
   CoeusTxBuilder,
@@ -11,8 +12,9 @@ const {
   UserOperation,
 } = Coeus;
 
-export const sendTransfer = async(domain: string): Promise<void> => {
-  const network = Crypto.Coin.Hydra.Testnet;
+export const sendTransfer = async(network: string, domain: string): Promise<void> => {
+  const coin = rustNetworkFromNetwork(network);
+  const networkConfig = networkConfigFromNetwork(network);
   const unlockPassword = 'unlock_password';
   const hydraParameters = new Crypto.HydraParameters(network, 0);
 
@@ -31,9 +33,7 @@ export const sendTransfer = async(domain: string): Promise<void> => {
   // see the delete.ts as this key is the key from the wallet created there.
   const newPublicKey = 'pszkrWygFdYDVWr6L2G1Mt84RQVaJoy8ixcGhjCxqKqAoYn';
 
-  const networkConfig = NetworkConfig.fromUrl(getHostByNetwork(Network.LocalTestnet), 4703);
   const layer1Api = await Layer1.createApi(networkConfig);
-  // address is tfGrjiGiL3Rs4etZw6SchqXt8JJ1VFzNHB
   const layer1Nonce = BigInt(await layer1Api.getWalletNonce(hydra.pub.key(0).address)) + BigInt(1);
 
   const layer2Api = Layer2.createCoeusApi(networkConfig);
@@ -47,7 +47,7 @@ export const sendTransfer = async(domain: string): Promise<void> => {
     .build(layer2Nonce);
   const signedOps = noncedOps.sign(multicipherPrivateKey);
 
-  const tx = new CoeusTxBuilder(network)
+  const tx = new CoeusTxBuilder(coin)
     .build(signedOps, secpPublicKey, layer1Nonce);
   const signer = new HydraSigner(secpPrivateKey);
   const signedTx: ArkCryptoIf.ITransactionData = signer.signHydraTransaction(tx);

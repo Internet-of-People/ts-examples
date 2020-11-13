@@ -1,9 +1,11 @@
 import { Identities } from '@arkecosystem/crypto';
-import { getHostByNetwork, Layer1, Network, NetworkConfig } from '@internet-of-people/sdk';
-import { CommandLineAction, CommandLineStringParameter } from '@rushstack/ts-command-line';
+import { Layer1 } from '@internet-of-people/sdk';
+import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
+import { networkConfigFromNetwork } from '../utils';
 
-export const checkIfSenderHasEnoughHydras = async(passphrase: string): Promise<void> => {
-  const api = await Layer1.createApi(NetworkConfig.fromUrl(getHostByNetwork(Network.LocalTestnet), 4703));
+export const checkIfSenderHasEnoughHydras = async(network: string, passphrase: string): Promise<void> => {
+  const networkConfig = networkConfigFromNetwork(network);
+  const api = await Layer1.createApi(networkConfig);
   const address = Identities.Address.fromPassphrase(passphrase);
   const balance = await api.getWalletBalance(address);
 
@@ -36,5 +38,15 @@ export const signerKeyIdParameter = (ref: CommandLineAction): CommandLineStringP
     argumentName: 'SIGNER_KEYID',
     description: 'The keyid that signs this morpheus operation.',
     required: true,
+  });
+};
+
+export const networkParameter = (ref: CommandLineAction): CommandLineChoiceParameter => {
+  return ref.defineChoiceParameter({
+    parameterLongName: '--network',
+    alternatives: [ 'local-testnet', 'testnet', 'devnet', 'mainnet' ],
+    description: 'The network you would like to run against the script.',
+    required: false,
+    defaultValue: 'local-testnet'
   });
 };

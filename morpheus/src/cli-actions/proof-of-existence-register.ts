@@ -1,10 +1,11 @@
-import { CommandLineAction, CommandLineStringParameter } from '@rushstack/ts-command-line';
+import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { sendRegisterBeforeProof } from '../samples/proof-of-existence-register';
-import { checkIfSenderHasEnoughHydras, gasPassphraseParameter } from './common';
+import { checkIfSenderHasEnoughHydras, gasPassphraseParameter, networkParameter } from './common';
 
 export class BeforeProofRegisterAction extends CommandLineAction {
   private contentId!: CommandLineStringParameter;
   private gasPassphrase!: CommandLineStringParameter;
+  private network!: CommandLineChoiceParameter;
 
   public constructor() {
     super({
@@ -23,13 +24,15 @@ export class BeforeProofRegisterAction extends CommandLineAction {
     });
 
     this.gasPassphrase = gasPassphraseParameter(this);
+    this.network = networkParameter(this);
   }
 
   protected async onExecute(): Promise<void> {
     console.log('Sending proof of existence registration with the following parameters:');
-    console.log(`Content Id: ${this.contentId.value!}`);
+    console.log(`- Network: ${this.network.value!}`);
+    console.log(`- Content Id: ${this.contentId.value!}`);
 
-    await checkIfSenderHasEnoughHydras(this.gasPassphrase.value!);
-    await sendRegisterBeforeProof(this.contentId.value!, this.gasPassphrase.value!);
+    await checkIfSenderHasEnoughHydras(this.network.value!, this.gasPassphrase.value!);
+    await sendRegisterBeforeProof(this.network.value!, this.contentId.value!, this.gasPassphrase.value!);
   }
 }

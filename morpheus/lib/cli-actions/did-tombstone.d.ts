@@ -4,6 +4,7 @@ export declare class DidTombstoneAction extends CommandLineAction {
     private gasPassphrase;
     private didToTombstone;
     private signerKeyId;
+    private network;
     constructor();
     protected onDefineParameters(): void;
     protected onExecute(): Promise<void>;

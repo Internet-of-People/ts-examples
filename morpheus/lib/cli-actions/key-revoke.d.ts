@@ -5,6 +5,7 @@ export declare class KeyRevokeAction extends CommandLineAction {
     private keyIdToRevoke;
     private didFromRevoke;
     private signerKeyId;
+    private network;
     constructor();
     protected onDefineParameters(): void;
     protected onExecute(): Promise<void>;

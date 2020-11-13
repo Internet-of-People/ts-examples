@@ -1,7 +1,7 @@
-import { CommandLineAction, CommandLineIntegerParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
+import { CommandLineAction, CommandLineChoiceParameter, CommandLineIntegerParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { Crypto } from '@internet-of-people/sdk';
 import { keyAdd } from '../samples/key-add';
-import { checkIfSenderHasEnoughHydras, gasPassphraseParameter, signerKeyIdParameter, vaultPathParameter } from './common';
+import { checkIfSenderHasEnoughHydras, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
 
 export class KeyAddAction extends CommandLineAction {
   private vaultPath!: CommandLineStringParameter;
@@ -10,6 +10,7 @@ export class KeyAddAction extends CommandLineAction {
   private didToAdd!: CommandLineStringParameter;
   private signerKeyId!: CommandLineStringParameter;
   private expiresAtHeight!: CommandLineIntegerParameter;
+  private network!: CommandLineChoiceParameter;
 
   public constructor() {
     super({
@@ -45,18 +46,21 @@ export class KeyAddAction extends CommandLineAction {
       description: 'The height when this key has to be expired.',
       required: false,
     });
+    this.network = networkParameter(this);
   }
 
   protected async onExecute(): Promise<void> {
     console.log('Sending add key transaction with the following parameters:');
-    console.log(`Vault Path: ${this.vaultPath.value!}`);
-    console.log(`KeyId to add: ${this.keyIdToAdd.value!}`);
-    console.log(`DID: ${this.didToAdd.value!}`);
-    console.log(`Signer KeyId: ${this.signerKeyId.value!}`);
-    console.log(`Expires at Height: ${this.expiresAtHeight.value!}`);
+    console.log(`- Network: ${this.network.value!}`);
+    console.log(`- Vault Path: ${this.vaultPath.value!}`);
+    console.log(`- KeyId to add: ${this.keyIdToAdd.value!}`);
+    console.log(`- DID: ${this.didToAdd.value!}`);
+    console.log(`- Signer KeyId: ${this.signerKeyId.value!}`);
+    console.log(`- Expires at Height: ${this.expiresAtHeight.value!}`);
 
-    await checkIfSenderHasEnoughHydras(this.gasPassphrase.value!);
+    await checkIfSenderHasEnoughHydras(this.network.value!, this.gasPassphrase.value!);
     await keyAdd(
+      this.network.value!,
       this.vaultPath.value!,
       Crypto.authenticationFromData(this.keyIdToAdd.value!),
       new Crypto.Did(this.didToAdd.value!),

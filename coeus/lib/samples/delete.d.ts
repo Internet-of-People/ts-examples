@@ -1,1 +1,1 @@
-export declare const sendDelete: (domain: string) => Promise<void>;
+export declare const sendDelete: (network: string, domain: string) => Promise<void>;

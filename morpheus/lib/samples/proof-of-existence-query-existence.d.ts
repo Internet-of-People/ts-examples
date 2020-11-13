@@ -1,1 +1,1 @@
-export declare const queryBeforeProofExistence: (contentId: string, height: number | undefined) => Promise<void>;
+export declare const queryBeforeProofExistence: (network: string, contentId: string, height: number | undefined) => Promise<void>;

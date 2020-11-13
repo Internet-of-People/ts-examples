@@ -23,13 +23,15 @@ class RenewAction extends ts_command_line_1.CommandLineAction {
     onDefineParameters() {
         this.domain = common_1.domainParameter(this);
         this.expiresAtHeight = common_1.expiresAtHeightParameter(this);
+        this.network = common_1.networkParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending domain renewal with the following parameters:');
-            console.log(`Domain: ${this.domain.value}`);
-            console.log(`Expires at Height: ${this.expiresAtHeight.value}`);
-            yield renew_1.sendRenew(this.domain.value, this.expiresAtHeight.value);
+            console.log(`- Network: ${this.network.value}`);
+            console.log(`- Domain: ${this.domain.value}`);
+            console.log(`- Expires at Height: ${this.expiresAtHeight.value}`);
+            yield renew_1.sendRenew(this.network.value, this.domain.value, this.expiresAtHeight.value);
         });
     }
 }

@@ -5,13 +5,14 @@ import {
   CommandLineStringParameter,
 } from '@rushstack/ts-command-line';
 import { sendRegister } from '../samples/register';
-import { dataParameter, domainParameter, expiresAtHeightParameter } from './common';
+import { dataParameter, domainParameter, expiresAtHeightParameter, networkParameter } from './common';
 
 export class RegisterAction extends CommandLineAction {
   private domain!: CommandLineStringParameter;
   private data!: CommandLineStringParameter;
   private expiresAtHeight!: CommandLineIntegerParameter;
   private registrationPolicy!: CommandLineChoiceParameter;
+  private network!: CommandLineChoiceParameter;
 
   public constructor() {
     super({
@@ -30,15 +31,18 @@ export class RegisterAction extends CommandLineAction {
       alternatives: [ 'owner', 'any' ],
       description: 'TODO',
     });
+    this.network = networkParameter(this);
   }
 
   protected async onExecute(): Promise<void> {
     console.log('Sending domain registration with the following parameters:');
+    console.log(`- Network: ${this.network.value!}`);
     console.log(`- Domain: ${this.domain.value!}`);
     console.log(`- Registration Policy: ${this.registrationPolicy.value || 'Not specified'}`);
     console.log(`- Data: ${this.data.value!}`);
     console.log(`- Expires at Height: ${this.expiresAtHeight.value!}`);
     await sendRegister(
+      this.network.value!,
       this.domain.value!,
       this.data.value!,
       this.expiresAtHeight.value!,

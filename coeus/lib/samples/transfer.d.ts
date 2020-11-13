@@ -1,1 +1,1 @@
-export declare const sendTransfer: (domain: string) => Promise<void>;
+export declare const sendTransfer: (network: string, domain: string) => Promise<void>;

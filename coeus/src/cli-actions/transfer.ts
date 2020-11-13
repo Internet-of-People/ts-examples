@@ -1,9 +1,10 @@
-import { CommandLineAction, CommandLineStringParameter } from '@rushstack/ts-command-line';
+import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { sendTransfer } from '../samples/transfer';
-import { domainParameter } from './common';
+import { domainParameter, networkParameter } from './common';
 
 export class TransferAction extends CommandLineAction {
   private domain!: CommandLineStringParameter;
+  private network!: CommandLineChoiceParameter;
 
   public constructor() {
     super({
@@ -15,11 +16,13 @@ export class TransferAction extends CommandLineAction {
 
   protected onDefineParameters(): void {
     this.domain = domainParameter(this);
+    this.network = networkParameter(this);
   }
 
   protected async onExecute(): Promise<void> {
     console.log('Sending domain transfer with the following parameters:');
-    console.log(`Domain: ${this.domain.value!}`);
-    await sendTransfer(this.domain.value!);
+    console.log(`- Network: ${this.network.value!}`);
+    console.log(`- Domain: ${this.domain.value!}`);
+    await sendTransfer(this.network.value!, this.domain.value!);
   }
 }

@@ -10,11 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sdk_1 = require("@internet-of-people/sdk");
-exports.sendRegisterBeforeProof = (contentId, passphrase) => __awaiter(void 0, void 0, void 0, function* () {
+const utils_1 = require("../utils");
+exports.sendRegisterBeforeProof = (network, contentId, passphrase) => __awaiter(void 0, void 0, void 0, function* () {
     const opAttempts = new sdk_1.Layer1.OperationAttemptsBuilder()
         .registerBeforeProof(contentId)
         .getAttempts();
-    const api = yield sdk_1.Layer1.createApi(sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703));
+    const networkConfig = utils_1.networkConfigFromNetwork(network);
+    const api = yield sdk_1.Layer1.createApi(networkConfig);
     const id = yield api.sendMorpheusTxWithPassphrase(opAttempts, passphrase);
     console.log(`Proof of existence txn was sent, id: ${id}`);
 });

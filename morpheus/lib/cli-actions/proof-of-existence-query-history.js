@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const ts_command_line_1 = require("@rushstack/ts-command-line");
 const proof_of_existence_query_history_1 = require("../samples/proof-of-existence-query-history");
+const common_1 = require("./common");
 class BeforeProofQueryHistoryAction extends ts_command_line_1.CommandLineAction {
     constructor() {
         super({
@@ -26,12 +27,14 @@ class BeforeProofQueryHistoryAction extends ts_command_line_1.CommandLineAction 
             description: 'The content id you\'d like to query. E.g. cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu2nKwH9gdr1AiFw',
             required: true,
         });
+        this.network = common_1.networkParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Querying content id\'s existence:');
-            console.log(`Content Id: ${this.contentId.value}`);
-            yield proof_of_existence_query_history_1.queryBeforeProofHistory(this.contentId.value);
+            console.log(`- Network: ${this.network.value}`);
+            console.log(`- Content Id: ${this.contentId.value}`);
+            yield proof_of_existence_query_history_1.queryBeforeProofHistory(this.network.value, this.contentId.value);
         });
     }
 }

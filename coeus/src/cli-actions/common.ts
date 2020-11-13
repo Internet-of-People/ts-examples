@@ -1,4 +1,4 @@
-import { CommandLineAction, CommandLineIntegerParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
+import { CommandLineAction, CommandLineChoiceParameter, CommandLineIntegerParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 
 export const principalParameter = (ref: CommandLineAction, cliFlag: string): CommandLineStringParameter => {
   return ref.defineStringParameter({
@@ -33,5 +33,15 @@ export const expiresAtHeightParameter = (ref: CommandLineAction): CommandLineInt
     argumentName: 'EXPIRES_AT_HEIGHT',
     description: 'The blockheight when the given domain are going to be expired.',
     required: true,
+  });
+};
+
+export const networkParameter = (ref: CommandLineAction): CommandLineChoiceParameter => {
+  return ref.defineChoiceParameter({
+    parameterLongName: '--network',
+    alternatives: [ 'local-testnet', 'testnet', 'devnet', 'mainnet' ],
+    description: 'The network you would like to run against the script.',
+    required: false,
+    defaultValue: 'local-testnet'
   });
 };

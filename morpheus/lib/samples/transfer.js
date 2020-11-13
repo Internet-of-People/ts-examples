@@ -10,8 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sdk_1 = require("@internet-of-people/sdk");
-exports.sendTransfer = (senderPassphrase, toAddress, amountHyd) => __awaiter(void 0, void 0, void 0, function* () {
-    const api = yield sdk_1.Layer1.createApi(sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703));
+const utils_1 = require("../utils");
+exports.sendTransfer = (network, senderPassphrase, toAddress, amountHyd) => __awaiter(void 0, void 0, void 0, function* () {
+    const networkConfig = utils_1.networkConfigFromNetwork(network);
+    const api = yield sdk_1.Layer1.createApi(networkConfig);
     const id = yield api.sendTransferTxWithPassphrase(senderPassphrase, toAddress, BigInt(amountHyd) * BigInt(1e8));
     console.log(`transfer txn was sent, id: ${id}`);
 });

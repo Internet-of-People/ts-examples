@@ -37,16 +37,18 @@ class RightAddAction extends ts_command_line_1.CommandLineAction {
             required: true,
         });
         this.signerKeyId = common_1.signerKeyIdParameter(this);
+        this.network = common_1.networkParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending add right transaction with the following parameters:');
-            console.log(`Vault Path: ${this.vaultPath.value}`);
-            console.log(`KeyId to add: ${this.keyIdToAdd.value}`);
-            console.log(`DID: ${this.onDid.value}`);
-            console.log(`Signer KeyId: ${this.signerKeyId.value}`);
-            yield common_1.checkIfSenderHasEnoughHydras(this.gasPassphrase.value);
-            yield right_add_1.rightAdd(this.vaultPath.value, sdk_1.Crypto.authenticationFromData(this.keyIdToAdd.value), new sdk_1.Crypto.Did(this.onDid.value), sdk_1.Crypto.authenticationFromData(this.signerKeyId.value), this.gasPassphrase.value);
+            console.log(`- Network: ${this.network.value}`);
+            console.log(`- Vault Path: ${this.vaultPath.value}`);
+            console.log(`- KeyId to add: ${this.keyIdToAdd.value}`);
+            console.log(`- DID: ${this.onDid.value}`);
+            console.log(`- Signer KeyId: ${this.signerKeyId.value}`);
+            yield common_1.checkIfSenderHasEnoughHydras(this.network.value, this.gasPassphrase.value);
+            yield right_add_1.rightAdd(this.network.value, this.vaultPath.value, sdk_1.Crypto.authenticationFromData(this.keyIdToAdd.value), new sdk_1.Crypto.Did(this.onDid.value), sdk_1.Crypto.authenticationFromData(this.signerKeyId.value), this.gasPassphrase.value);
         });
     }
 }

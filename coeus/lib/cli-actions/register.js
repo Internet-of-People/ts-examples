@@ -29,15 +29,17 @@ class RegisterAction extends ts_command_line_1.CommandLineAction {
             alternatives: ['owner', 'any'],
             description: 'TODO',
         });
+        this.network = common_1.networkParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending domain registration with the following parameters:');
+            console.log(`- Network: ${this.network.value}`);
             console.log(`- Domain: ${this.domain.value}`);
             console.log(`- Registration Policy: ${this.registrationPolicy.value || 'Not specified'}`);
             console.log(`- Data: ${this.data.value}`);
             console.log(`- Expires at Height: ${this.expiresAtHeight.value}`);
-            yield register_1.sendRegister(this.domain.value, this.data.value, this.expiresAtHeight.value);
+            yield register_1.sendRegister(this.network.value, this.domain.value, this.data.value, this.expiresAtHeight.value);
         });
     }
 }

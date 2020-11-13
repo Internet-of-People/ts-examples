@@ -24,6 +24,31 @@ $ ./coeus.sh --help
 $ ./coeus.sh ACTION ACTION_PARAMETERS
 ```
 
+## Notes
+
+### Network Selection
+
+By default all commands connects to a local test node. You can overwrite it with `--network=[testnet|devnet|mainnet]` parameter;
+
+### Used Addresses
+
+The scripts right now use two addresses which you have to make sure have some HYDs on it.
+
+#### Testnet
+
+- tfGrjiGiL3Rs4etZw6SchqXt8JJ1VFzNHB: for register, renew, update, transfer
+- thPGZgTWACKgaPFFg7Ev59bUzoyeLehQqP: for delete
+
+#### Devnet
+
+- dNRwKawmMBpZzBbH19nWH5BzD8WAPfDdad: for register, renew, update, transfer
+- dQYM9Z8ZBLiPVuwxkAaoePFb5eBoMKEYHA: for delete
+
+#### Mainnet
+
+- hFU745UqLLHqMZMz2qjEomBWBBJMhYyTE6: for register, renew, update, transfer
+- hQCNZyoVFi8nkWTvNKF3uHTafRapCQBDNy: for delete
+
 ## Available Commands
 
 ### Register

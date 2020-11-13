@@ -6,6 +6,7 @@ export declare class KeyAddAction extends CommandLineAction {
     private didToAdd;
     private signerKeyId;
     private expiresAtHeight;
+    private network;
     constructor();
     protected onDefineParameters(): void;
     protected onExecute(): Promise<void>;

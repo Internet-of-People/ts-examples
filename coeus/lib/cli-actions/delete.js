@@ -22,12 +22,14 @@ class DeleteAction extends ts_command_line_1.CommandLineAction {
     }
     onDefineParameters() {
         this.domain = common_1.domainParameter(this);
+        this.network = common_1.networkParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending domain deletion with the following parameters:');
-            console.log(`Domain: ${this.domain.value}`);
-            yield delete_1.sendDelete(this.domain.value);
+            console.log(`- Network: ${this.network.value}`);
+            console.log(`- Domain: ${this.domain.value}`);
+            yield delete_1.sendDelete(this.network.value, this.domain.value);
         });
     }
 }

@@ -11,8 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = require("@arkecosystem/crypto");
 const sdk_1 = require("@internet-of-people/sdk");
-exports.checkIfSenderHasEnoughHydras = (passphrase) => __awaiter(void 0, void 0, void 0, function* () {
-    const api = yield sdk_1.Layer1.createApi(sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703));
+const utils_1 = require("../utils");
+exports.checkIfSenderHasEnoughHydras = (network, passphrase) => __awaiter(void 0, void 0, void 0, function* () {
+    const networkConfig = utils_1.networkConfigFromNetwork(network);
+    const api = yield sdk_1.Layer1.createApi(networkConfig);
     const address = crypto_1.Identities.Address.fromPassphrase(passphrase);
     const balance = yield api.getWalletBalance(address);
     if (balance < BigInt(1e8)) {
@@ -41,6 +43,15 @@ exports.signerKeyIdParameter = (ref) => {
         argumentName: 'SIGNER_KEYID',
         description: 'The keyid that signs this morpheus operation.',
         required: true,
+    });
+};
+exports.networkParameter = (ref) => {
+    return ref.defineChoiceParameter({
+        parameterLongName: '--network',
+        alternatives: ['local-testnet', 'testnet', 'devnet', 'mainnet'],
+        description: 'The network you would like to run against the script.',
+        required: false,
+        defaultValue: 'local-testnet'
     });
 };
 //# sourceMappingURL=common.js.map

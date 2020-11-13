@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const ts_command_line_1 = require("@rushstack/ts-command-line");
 const proof_of_existence_query_existence_1 = require("../samples/proof-of-existence-query-existence");
+const common_1 = require("./common");
 class BeforeProofQueryExistenceAction extends ts_command_line_1.CommandLineAction {
     constructor() {
         super({
@@ -32,13 +33,15 @@ class BeforeProofQueryExistenceAction extends ts_command_line_1.CommandLineActio
             description: 'Check existence at this height.',
             required: false,
         });
+        this.network = common_1.networkParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Querying content id\'s existence:');
-            console.log(`Content Id: ${this.contentId.value}`);
-            console.log(`At height: ${this.height.value ? this.height.value : '-'}`);
-            yield proof_of_existence_query_existence_1.queryBeforeProofExistence(this.contentId.value, this.height.value);
+            console.log(`- Network: ${this.network.value}`);
+            console.log(`- Content Id: ${this.contentId.value}`);
+            console.log(`- At height: ${this.height.value ? this.height.value : '-'}`);
+            yield proof_of_existence_query_existence_1.queryBeforeProofExistence(this.network.value, this.contentId.value, this.height.value);
         });
     }
 }

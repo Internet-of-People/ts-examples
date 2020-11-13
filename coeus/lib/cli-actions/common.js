@@ -32,4 +32,13 @@ exports.expiresAtHeightParameter = (ref) => {
         required: true,
     });
 };
+exports.networkParameter = (ref) => {
+    return ref.defineChoiceParameter({
+        parameterLongName: '--network',
+        alternatives: ['local-testnet', 'testnet', 'devnet', 'mainnet'],
+        description: 'The network you would like to run against the script.',
+        required: false,
+        defaultValue: 'local-testnet'
+    });
+};
 //# sourceMappingURL=common.js.map

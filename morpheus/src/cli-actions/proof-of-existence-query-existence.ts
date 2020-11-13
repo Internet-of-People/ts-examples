@@ -1,9 +1,11 @@
-import { CommandLineAction, CommandLineIntegerParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
+import { CommandLineAction, CommandLineChoiceParameter, CommandLineIntegerParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { queryBeforeProofExistence } from '../samples/proof-of-existence-query-existence';
+import { networkParameter } from './common';
 
 export class BeforeProofQueryExistenceAction extends CommandLineAction {
   private contentId!: CommandLineStringParameter;
   private height!: CommandLineIntegerParameter;
+  private network!: CommandLineChoiceParameter;
 
   public constructor() {
     super({
@@ -27,12 +29,14 @@ export class BeforeProofQueryExistenceAction extends CommandLineAction {
       description: 'Check existence at this height.',
       required: false,
     });
+    this.network = networkParameter(this);
   }
 
   protected async onExecute(): Promise<void> {
     console.log('Querying content id\'s existence:');
-    console.log(`Content Id: ${this.contentId.value!}`);
-    console.log(`At height: ${this.height.value ? this.height.value : '-'}`);
-    await queryBeforeProofExistence(this.contentId.value!, this.height.value);
+    console.log(`- Network: ${this.network.value!}`);
+    console.log(`- Content Id: ${this.contentId.value!}`);
+    console.log(`- At height: ${this.height.value ? this.height.value : '-'}`);
+    await queryBeforeProofExistence(this.network.value!, this.contentId.value!, this.height.value);
   }
 }

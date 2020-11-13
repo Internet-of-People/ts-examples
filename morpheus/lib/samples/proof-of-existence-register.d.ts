@@ -1,1 +1,1 @@
-export declare const sendRegisterBeforeProof: (contentId: string, passphrase: string) => Promise<void>;
+export declare const sendRegisterBeforeProof: (network: string, contentId: string, passphrase: string) => Promise<void>;

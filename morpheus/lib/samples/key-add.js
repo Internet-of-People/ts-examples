@@ -11,12 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 const sdk_1 = require("@internet-of-people/sdk");
+const utils_1 = require("../utils");
 const unlockPassword = 'correct horse battery staple';
-exports.keyAdd = (vaultPath, keyIdToAdd, didToAdd, signerKeyId, expiresAtHeight, gasPassphrase) => __awaiter(void 0, void 0, void 0, function* () {
+exports.keyAdd = (network, vaultPath, keyIdToAdd, didToAdd, signerKeyId, expiresAtHeight, gasPassphrase) => __awaiter(void 0, void 0, void 0, function* () {
     const serializedVault = yield fs_1.promises.readFile(vaultPath, { encoding: 'utf-8' });
     const vault = sdk_1.Crypto.Vault.load(JSON.parse(serializedVault));
     const morpheusPlugin = sdk_1.Crypto.MorpheusPlugin.get(vault);
-    const networkConfig = sdk_1.NetworkConfig.fromUrl(sdk_1.getHostByNetwork(sdk_1.Network.LocalTestnet), 4703);
+    const networkConfig = utils_1.networkConfigFromNetwork(network);
     const layer1Api = yield sdk_1.Layer1.createApi(networkConfig);
     const layer2Api = sdk_1.Layer2.createMorpheusApi(networkConfig);
     const lastTxId = yield layer2Api.getLastTxId(didToAdd);

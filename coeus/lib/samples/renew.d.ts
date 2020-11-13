@@ -1,1 +1,1 @@
-export declare const sendRenew: (domain: string, expiresAtHeight: number) => Promise<void>;
+export declare const sendRenew: (network: string, domain: string, expiresAtHeight: number) => Promise<void>;

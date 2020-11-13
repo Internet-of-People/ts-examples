@@ -38,6 +38,12 @@ We recommend to follow these steps to discover how the SSI SDK really works.
 1. Create DID
 1. Add Key to a DID
 
+## Notes
+
+### Network Selection
+
+By default all commands connects to a local test node. You can overwrite it with `--network=[testnet|devnet|mainnet]` parameter;
+
 ## Available Commands
 
 ### Init Vault

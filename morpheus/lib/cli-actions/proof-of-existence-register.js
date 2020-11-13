@@ -28,13 +28,15 @@ class BeforeProofRegisterAction extends ts_command_line_1.CommandLineAction {
             required: true,
         });
         this.gasPassphrase = common_1.gasPassphraseParameter(this);
+        this.network = common_1.networkParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending proof of existence registration with the following parameters:');
-            console.log(`Content Id: ${this.contentId.value}`);
-            yield common_1.checkIfSenderHasEnoughHydras(this.gasPassphrase.value);
-            yield proof_of_existence_register_1.sendRegisterBeforeProof(this.contentId.value, this.gasPassphrase.value);
+            console.log(`- Network: ${this.network.value}`);
+            console.log(`- Content Id: ${this.contentId.value}`);
+            yield common_1.checkIfSenderHasEnoughHydras(this.network.value, this.gasPassphrase.value);
+            yield proof_of_existence_register_1.sendRegisterBeforeProof(this.network.value, this.contentId.value, this.gasPassphrase.value);
         });
     }
 }

@@ -1,17 +1,16 @@
 import { promises as fs } from 'fs';
 import {
   Crypto,
-  getHostByNetwork,
   Layer1,
   Layer2,
-  Network,
-  NetworkConfig,
   Types,
 } from '@internet-of-people/sdk';
+import { networkConfigFromNetwork } from '../utils';
 
 const unlockPassword = 'correct horse battery staple';
 
 export const keyRevoke = async(
+  network: string,
   vaultPath: string,
   keyIdToRevoke: Types.Crypto.Authentication,
   didFromRevoke: Crypto.Did,
@@ -22,7 +21,7 @@ export const keyRevoke = async(
   const vault = Crypto.Vault.load(JSON.parse(serializedVault));
   const morpheusPlugin = Crypto.MorpheusPlugin.get(vault);
 
-  const networkConfig = NetworkConfig.fromUrl(getHostByNetwork(Network.LocalTestnet), 4703);
+  const networkConfig = networkConfigFromNetwork(network);
   const layer1Api = await Layer1.createApi(networkConfig);
   const layer2Api = Layer2.createMorpheusApi(networkConfig);
 

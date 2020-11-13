@@ -1,6 +1,6 @@
-import { CommandLineAction, CommandLineStringParameter } from '@rushstack/ts-command-line';
+import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { Crypto } from '@internet-of-people/sdk';
-import { checkIfSenderHasEnoughHydras, gasPassphraseParameter, signerKeyIdParameter, vaultPathParameter } from './common';
+import { checkIfSenderHasEnoughHydras, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
 import { rightAdd } from '../samples/right-add';
 
 export class RightAddAction extends CommandLineAction {
@@ -9,6 +9,7 @@ export class RightAddAction extends CommandLineAction {
   private keyIdToAdd!: CommandLineStringParameter;
   private onDid!: CommandLineStringParameter;
   private signerKeyId!: CommandLineStringParameter;
+  private network!: CommandLineChoiceParameter;
 
   public constructor() {
     super({
@@ -37,17 +38,20 @@ export class RightAddAction extends CommandLineAction {
     });
 
     this.signerKeyId = signerKeyIdParameter(this);
+    this.network = networkParameter(this);
   }
 
   protected async onExecute(): Promise<void> {
     console.log('Sending add right transaction with the following parameters:');
-    console.log(`Vault Path: ${this.vaultPath.value!}`);
-    console.log(`KeyId to add: ${this.keyIdToAdd.value!}`);
-    console.log(`DID: ${this.onDid.value!}`);
-    console.log(`Signer KeyId: ${this.signerKeyId.value!}`);
+    console.log(`- Network: ${this.network.value!}`);
+    console.log(`- Vault Path: ${this.vaultPath.value!}`);
+    console.log(`- KeyId to add: ${this.keyIdToAdd.value!}`);
+    console.log(`- DID: ${this.onDid.value!}`);
+    console.log(`- Signer KeyId: ${this.signerKeyId.value!}`);
 
-    await checkIfSenderHasEnoughHydras(this.gasPassphrase.value!);
+    await checkIfSenderHasEnoughHydras(this.network.value!, this.gasPassphrase.value!);
     await rightAdd(
+      this.network.value!, 
       this.vaultPath.value!,
       Crypto.authenticationFromData(this.keyIdToAdd.value!),
       new Crypto.Did(this.onDid.value!),

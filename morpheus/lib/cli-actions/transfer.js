@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const ts_command_line_1 = require("@rushstack/ts-command-line");
 const transfer_1 = require("../samples/transfer");
+const common_1 = require("./common");
 class TransferAction extends ts_command_line_1.CommandLineAction {
     constructor() {
         super({
@@ -38,14 +39,16 @@ class TransferAction extends ts_command_line_1.CommandLineAction {
             description: 'The amount in HYD you\'d like to transfer.',
             required: true,
         });
+        this.network = common_1.networkParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending transfer with the following parameters:');
-            console.log(`From: ${this.fromPassphrase.value}`);
-            console.log(`To: ${this.toAddress.value}`);
-            console.log(`Amount: ${this.amount.value} HYD`);
-            yield transfer_1.sendTransfer(this.fromPassphrase.value, this.toAddress.value, BigInt(this.amount.value));
+            console.log(`- Network: ${this.network.value}`);
+            console.log(`- From: ${this.fromPassphrase.value}`);
+            console.log(`- To: ${this.toAddress.value}`);
+            console.log(`- Amount: ${this.amount.value} HYD`);
+            yield transfer_1.sendTransfer(this.network.value, this.fromPassphrase.value, this.toAddress.value, BigInt(this.amount.value));
         });
     }
 }

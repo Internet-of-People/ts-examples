@@ -1,1 +1,1 @@
-export declare const queryBeforeProofHistory: (contentId: string) => Promise<void>;
+export declare const queryBeforeProofHistory: (network: string, contentId: string) => Promise<void>;

@@ -23,13 +23,15 @@ class UpdateAction extends ts_command_line_1.CommandLineAction {
     onDefineParameters() {
         this.domain = common_1.domainParameter(this);
         this.data = common_1.dataParameter(this);
+        this.network = common_1.networkParameter(this);
     }
     onExecute() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Sending domain update with the following parameters:');
-            console.log(`Domain: ${this.domain.value}`);
-            console.log(`Data: ${this.data.value}`);
-            yield update_1.sendUpdate(this.domain.value, this.data.value);
+            console.log(`- Network: ${this.network.value}`);
+            console.log(`- Domain: ${this.domain.value}`);
+            console.log(`- Data: ${this.data.value}`);
+            yield update_1.sendUpdate(this.network.value, this.domain.value, this.data.value);
         });
     }
 }

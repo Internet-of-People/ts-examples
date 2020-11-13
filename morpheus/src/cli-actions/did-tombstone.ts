@@ -1,6 +1,6 @@
-import { CommandLineAction, CommandLineStringParameter } from '@rushstack/ts-command-line';
+import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { Crypto } from '@internet-of-people/sdk';
-import { checkIfSenderHasEnoughHydras, gasPassphraseParameter, signerKeyIdParameter, vaultPathParameter } from './common';
+import { checkIfSenderHasEnoughHydras, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
 import { didTombstone } from '../samples/did-tombstone';
 
 export class DidTombstoneAction extends CommandLineAction {
@@ -8,6 +8,7 @@ export class DidTombstoneAction extends CommandLineAction {
   private gasPassphrase!: CommandLineStringParameter;
   private didToTombstone!: CommandLineStringParameter;
   private signerKeyId!: CommandLineStringParameter;
+  private network!: CommandLineChoiceParameter;
 
   public constructor() {
     super({
@@ -29,16 +30,19 @@ export class DidTombstoneAction extends CommandLineAction {
     });
 
     this.signerKeyId = signerKeyIdParameter(this);
+    this.network = networkParameter(this);
   }
 
   protected async onExecute(): Promise<void> {
     console.log('Sending tombstone did transaction with the following parameters:');
-    console.log(`Vault Path: ${this.vaultPath.value!}`);
-    console.log(`DID to tombstone: ${this.didToTombstone.value!}`);
-    console.log(`Signer KeyId: ${this.signerKeyId.value!}`);
+    console.log(`- Network: ${this.network.value!}`);
+    console.log(`- Vault Path: ${this.vaultPath.value!}`);
+    console.log(`- DID to tombstone: ${this.didToTombstone.value!}`);
+    console.log(`- Signer KeyId: ${this.signerKeyId.value!}`);
 
-    await checkIfSenderHasEnoughHydras(this.gasPassphrase.value!);
+    await checkIfSenderHasEnoughHydras(this.network.value!, this.gasPassphrase.value!);
     await didTombstone(
+      this.network.value!,
       this.vaultPath.value!,
       new Crypto.Did(this.didToTombstone.value!),
       Crypto.authenticationFromData(this.signerKeyId.value!),
