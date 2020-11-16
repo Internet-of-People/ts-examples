@@ -2,9 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.1.1](https://github.com/Internet-of-People/ts-examples/compare/1.1.0..1.1.1)
+
+- Removing automation for now [`73fbc04`](https://github.com/Internet-of-People/ts-examples/commit/73fbc04e218bd3d53952c936d9af6f00ae528117)
+
 #### [1.1.0](https://github.com/Internet-of-People/ts-examples/compare/1.0.1..1.1.0)
 
+> 16 November 2020
+
 - Add CI release [`5a8f7e1`](https://github.com/Internet-of-People/ts-examples/commit/5a8f7e1f0cf29b1218d675cec55530b45598347a)
+- Release 1.1.0 [`906b986`](https://github.com/Internet-of-People/ts-examples/commit/906b9863c639ba2a93c1dd6b2ae61cafe5d921df)
 - Install jq in CI to be able to auto release [`b5c4624`](https://github.com/Internet-of-People/ts-examples/commit/b5c462469427acd1b488ff3b17b5066255dfbfd1)
 
 #### 1.0.1
