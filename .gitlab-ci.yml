@@ -12,6 +12,7 @@ build:
   only:
     - master
   before_script:
+    - apt-get update && apt-get install -y --no-install-recommends jq
     - npm ci
   script:
     - ./ci-release.sh
