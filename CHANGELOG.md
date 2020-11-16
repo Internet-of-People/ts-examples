@@ -2,7 +2,10 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [1.0.1](https://github.com/Internet-of-People/ts-examples/compare/1.0.1..1.0.1)
+#### [1.1.0](https://github.com/Internet-of-People/ts-examples/compare/1.0.1..1.1.0)
+
+- Add CI release [`5a8f7e1`](https://github.com/Internet-of-People/ts-examples/commit/5a8f7e1f0cf29b1218d675cec55530b45598347a)
+- Install jq in CI to be able to auto release [`b5c4624`](https://github.com/Internet-of-People/ts-examples/commit/b5c462469427acd1b488ff3b17b5066255dfbfd1)
 
 #### 1.0.1
 
