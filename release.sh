@@ -39,6 +39,6 @@ if [ "$develop_after_release_local" != "$develop_after_release_remote" ]; then
 fi
 
 git checkout $master
-git pull --ff-only $develop
+git pull --ff-only origin $develop
 git push
 
