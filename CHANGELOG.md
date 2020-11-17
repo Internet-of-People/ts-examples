@@ -2,9 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.1.2](https://github.com/Internet-of-People/ts-examples/compare/1.1.1..1.1.2)
+
+- Adding release script [`971092c`](https://github.com/Internet-of-People/ts-examples/commit/971092ccb7928824bc05a76ce22f6f9090f17d9b)
+- x [`a1cb497`](https://github.com/Internet-of-People/ts-examples/commit/a1cb4977bc2536025d2e2ecd2a6b01fcfebd6692)
+
 #### [1.1.1](https://github.com/Internet-of-People/ts-examples/compare/1.1.0..1.1.1)
 
+> 16 November 2020
+
 - Removing automation for now [`73fbc04`](https://github.com/Internet-of-People/ts-examples/commit/73fbc04e218bd3d53952c936d9af6f00ae528117)
+- Release 1.1.1 [`eaac824`](https://github.com/Internet-of-People/ts-examples/commit/eaac824be61aa829a28773926ddf69cbd25c9e57)
 
 #### [1.1.0](https://github.com/Internet-of-People/ts-examples/compare/1.0.1..1.1.0)
 
