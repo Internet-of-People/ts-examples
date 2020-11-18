@@ -11,7 +11,6 @@ function executeCommand(command) {
 
 // Clean the old build outputs
 console.log(`==> Starting build.js for ${path.basename(process.cwd())}`);
-fsx.emptyDirSync('dist');
 fsx.emptyDirSync('lib');
 
 // Run the TypeScript compiler

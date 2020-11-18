@@ -11,7 +11,7 @@ const {
   PrivateKey,
 } = Coeus;
 
-export const sendDelete = async(
+export const sendDelete = async (
   network: string,
   domain: string,
 ): Promise<void> => {

@@ -1,5 +1,5 @@
 import { Interfaces as ArkCryptoIf } from '@arkecosystem/crypto';
-import { Coeus, Crypto, getHostByNetwork, Layer1, Layer2, Network, NetworkConfig } from '@internet-of-people/sdk';
+import { Coeus, Crypto, Layer1, Layer2 } from '@internet-of-people/sdk';
 import { networkConfigFromNetwork, rustNetworkFromNetwork } from '../utils';
 
 const {
@@ -11,7 +11,7 @@ const {
   PrivateKey,
 } = Coeus;
 
-export const sendUpdate = async(
+export const sendUpdate = async (
   network: string,
   domain: string,
   data: string,
@@ -22,7 +22,7 @@ export const sendUpdate = async(
   const phrase = 'include pear escape sail spy orange cute despair witness trouble sleep torch wire burst unable brass expose fiction drift clock duck oxygen aerobic already';
   const vault = Crypto.Vault.create(phrase, 'bip39_password', unlockPassword);
 
-  const hydraParameters = new Crypto.HydraParameters(network, 0);
+  const hydraParameters = new Crypto.HydraParameters(coin, 0);
   Crypto.HydraPlugin.rewind(vault, unlockPassword, hydraParameters);
 
   const hydra = Crypto.HydraPlugin.get(vault, hydraParameters);

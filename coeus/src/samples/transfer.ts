@@ -12,11 +12,11 @@ const {
   UserOperation,
 } = Coeus;
 
-export const sendTransfer = async(network: string, domain: string): Promise<void> => {
+export const sendTransfer = async (network: string, domain: string): Promise<void> => {
   const coin = rustNetworkFromNetwork(network);
   const networkConfig = networkConfigFromNetwork(network);
   const unlockPassword = 'unlock_password';
-  const hydraParameters = new Crypto.HydraParameters(network, 0);
+  const hydraParameters = new Crypto.HydraParameters(coin, 0);
 
   // ORIGINAL OWNER
   const phrase = 'include pear escape sail spy orange cute despair witness trouble sleep torch wire burst unable brass expose fiction drift clock duck oxygen aerobic already';
