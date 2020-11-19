@@ -1,4 +1,4 @@
 import { MorpheusCLI } from './morpheus-cli';
 
 const cli: MorpheusCLI = new MorpheusCLI();
-void cli.execute();
+cli.execute().then().catch((e) => {console.log(e)});

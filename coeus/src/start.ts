@@ -1,4 +1,4 @@
 import { CoeusCLI } from './coeus-cli';
 
 const cli: CoeusCLI = new CoeusCLI();
-void cli.execute();
+cli.execute().then().catch((e) => {console.log(e)});
