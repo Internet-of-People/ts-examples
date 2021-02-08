@@ -1,12 +1,17 @@
 import { promises as fs } from 'fs';
 import { Crypto } from '@internet-of-people/sdk';
 
+const unlockPassword = 'correct horse battery staple';
+
 export const vaultLoadAndDump = async(path: string): Promise<void> => {
   console.log('### Vault Dump ###');
   console.log(`- Path: ${path}`);
-
   const serialized = await fs.readFile(path, { encoding: 'utf-8' });
   const vault = Crypto.Vault.load(JSON.parse(serialized));
+  try {
+    Crypto.MorpheusPlugin.rewind(vault, unlockPassword);
+  }
+  catch(_){}
 
   const morpheusPlugin = Crypto.MorpheusPlugin.get(vault);
   const kind = morpheusPlugin.pub.personas;
