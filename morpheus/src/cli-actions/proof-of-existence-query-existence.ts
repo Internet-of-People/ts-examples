@@ -1,6 +1,6 @@
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineIntegerParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { queryBeforeProofExistence } from '../samples/proof-of-existence-query-existence';
-import { networkParameter } from './common';
+import { contentIdParameter, networkParameter } from './common';
 
 export class BeforeProofQueryExistenceAction extends CommandLineAction {
   private contentId!: CommandLineStringParameter;
@@ -16,12 +16,7 @@ export class BeforeProofQueryExistenceAction extends CommandLineAction {
   }
 
   protected onDefineParameters(): void {
-    this.contentId = this.defineStringParameter({
-      parameterLongName: '--content-id',
-      argumentName: 'CONTENT_ID',
-      description: 'The content id you\'d like to query. E.g. cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu2nKwH9gdr1AiFw',
-      required: true,
-    });
+    this.contentId = contentIdParameter(this);
 
     this.height = this.defineIntegerParameter({
       parameterLongName: '--at-height',

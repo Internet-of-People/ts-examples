@@ -1,7 +1,7 @@
 import { Layer2 } from '@internet-of-people/sdk';
 import { networkConfigFromNetwork } from '../utils';
 
-export const queryBeforeProofExistence = async(
+export const queryBeforeProofExistence = async (
   network: string,
   contentId: string,
   height: number | undefined,
@@ -9,5 +9,5 @@ export const queryBeforeProofExistence = async(
   const networkConfig = networkConfigFromNetwork(network);
   const api = Layer2.createMorpheusApi(networkConfig);
   const exists = await api.beforeProofExists(contentId, height);
-  console.log(`Content Id '${contentId}' exists: ${exists}`);
+  console.log(`Content ID '${contentId}' exists: ${exists}`);
 };

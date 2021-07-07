@@ -3,7 +3,7 @@ import { Crypto } from '@internet-of-people/sdk';
 
 const unlockPassword = 'correct horse battery staple';
 
-export const didCreate = async(vaultPath: string): Promise<void> => {
+export const didCreate = async (vaultPath: string): Promise<void> => {
   const serializedVault = await fs.readFile(vaultPath, { encoding: 'utf-8' });
   const vault = Crypto.Vault.load(JSON.parse(serializedVault));
 
@@ -16,5 +16,5 @@ export const didCreate = async(vaultPath: string): Promise<void> => {
   const serializedUpdatedVault = JSON.stringify(vault.save());
   await fs.writeFile(vaultPath, serializedUpdatedVault, { encoding: 'utf-8' });
 
-  console.log('New did created', did.toString());
+  console.log('New did was created', did.toString());
 };

@@ -1,6 +1,6 @@
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { Crypto } from '@internet-of-people/sdk';
-import { checkIfSenderHasEnoughHydras, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
+import { checkIfSenderHasEnoughHydras, didParameter, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
 import { didTombstone } from '../samples/did-tombstone';
 
 export class DidTombstoneAction extends CommandLineAction {
@@ -21,14 +21,7 @@ export class DidTombstoneAction extends CommandLineAction {
   protected onDefineParameters(): void {
     this.vaultPath = vaultPathParameter(this);
     this.gasPassphrase = gasPassphraseParameter(this);
-
-    this.didToTombstone = this.defineStringParameter({
-      parameterLongName: '--did',
-      argumentName: 'DID',
-      description: 'The DID you\'d like to tombstone',
-      required: true,
-    });
-
+    this.didToTombstone = didParameter(this);
     this.signerKeyId = signerKeyIdParameter(this);
     this.network = networkParameter(this);
   }

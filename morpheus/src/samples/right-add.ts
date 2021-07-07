@@ -9,12 +9,13 @@ import { networkConfigFromNetwork } from '../utils';
 
 const unlockPassword = 'correct horse battery staple';
 
-export const rightAdd = async(
+export const rightAdd = async (
   network: string,
   vaultPath: string,
   keyIdToAdd: Types.Crypto.Authentication,
   didToAdd: Crypto.Did,
   signerKeyId: Types.Crypto.Authentication,
+  right: string,
   gasPassphrase: string,
 ): Promise<void> => {
   const serializedVault = await fs.readFile(vaultPath, { encoding: 'utf-8' });
@@ -29,10 +30,10 @@ export const rightAdd = async(
   const opAttempts = new Layer1.OperationAttemptsBuilder()
     .signWith(morpheusPlugin.priv(unlockPassword))
     .on(didToAdd, lastTxId)
-    .addRight(keyIdToAdd, new Layer2.SystemRights().impersonate)
+    .addRight(keyIdToAdd, new Layer2.SystemRights()[right])
     .sign(signerKeyId)
     .getAttempts();
 
   const id = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, gasPassphrase);
-  console.log(`Add impersonate right txn was sent, id: ${id}`);
+  console.log(`Add right txn was sent, id: ${id}`);
 };

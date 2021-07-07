@@ -1,7 +1,7 @@
 import { Layer1 } from '@internet-of-people/sdk';
 import { networkConfigFromNetwork } from '../utils';
 
-export const sendTransfer = async(
+export const sendTransfer = async (
   network: string,
   senderPassphrase: string,
   toAddress: string,
@@ -13,8 +13,8 @@ export const sendTransfer = async(
   const id = await api.sendTransferTxWithPassphrase(
     senderPassphrase,
     toAddress,
-    BigInt(amountHyd) * BigInt(1e8),
+    amountHyd.valueOf() * BigInt(1e8),
   );
 
-  console.log(`transfer txn was sent, id: ${id}`);
+  console.log(`Transfer txn was sent, id: ${id}`);
 };

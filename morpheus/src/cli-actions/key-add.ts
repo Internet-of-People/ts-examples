@@ -1,7 +1,7 @@
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineIntegerParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { Crypto } from '@internet-of-people/sdk';
 import { keyAdd } from '../samples/key-add';
-import { checkIfSenderHasEnoughHydras, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
+import { authParameter, checkIfSenderHasEnoughHydras, didParameter, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
 
 export class KeyAddAction extends CommandLineAction {
   private vaultPath!: CommandLineStringParameter;
@@ -23,23 +23,9 @@ export class KeyAddAction extends CommandLineAction {
   protected onDefineParameters(): void {
     this.vaultPath = vaultPathParameter(this);
     this.gasPassphrase = gasPassphraseParameter(this);
-
-    this.keyIdToAdd = this.defineStringParameter({
-      parameterLongName: '--keyid',
-      argumentName: 'KEYID',
-      description: 'The keyid you\'d like to add to the did.',
-      required: true,
-    });
-
-    this.didToAdd = this.defineStringParameter({
-      parameterLongName: '--to-did',
-      argumentName: 'TO_DID',
-      description: 'The DID you add the keyid to.',
-      required: true,
-    });
-
+    this.keyIdToAdd = authParameter(this);
+    this.didToAdd = didParameter(this);
     this.signerKeyId = signerKeyIdParameter(this);
-
     this.expiresAtHeight = this.defineIntegerParameter({
       parameterLongName: '--expires-at-height',
       argumentName: 'EXPIRES_AT_HEIGHT',

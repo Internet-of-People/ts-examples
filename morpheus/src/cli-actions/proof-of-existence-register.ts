@@ -1,6 +1,6 @@
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { sendRegisterBeforeProof } from '../samples/proof-of-existence-register';
-import { checkIfSenderHasEnoughHydras, gasPassphraseParameter, networkParameter } from './common';
+import { checkIfSenderHasEnoughHydras, contentIdParameter, gasPassphraseParameter, networkParameter } from './common';
 
 export class BeforeProofRegisterAction extends CommandLineAction {
   private contentId!: CommandLineStringParameter;
@@ -16,13 +16,7 @@ export class BeforeProofRegisterAction extends CommandLineAction {
   }
 
   protected onDefineParameters(): void {
-    this.contentId = this.defineStringParameter({
-      parameterLongName: '--content-id',
-      argumentName: 'CONTENT_ID',
-      description: 'The content id you\'d like to register. E.g. cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu2nKwH9gdr1AiFw',
-      required: true,
-    });
-
+    this.contentId = contentIdParameter(this);
     this.gasPassphrase = gasPassphraseParameter(this);
     this.network = networkParameter(this);
   }

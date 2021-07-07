@@ -15,16 +15,18 @@ export const sendDelete = async (
   const vault = Crypto.Vault.create(phrase, 'bip39_password', unlockPassword);
 
   const hydraParameters = new Crypto.HydraParameters(coin, 0);
-  Crypto.HydraPlugin.rewind(vault, unlockPassword, hydraParameters);
+  Crypto.HydraPlugin.init(vault, unlockPassword, hydraParameters);
 
   const hydra = Crypto.HydraPlugin.get(vault, hydraParameters);
   const hydraPrivate = hydra.priv(unlockPassword);
-  
+
   const fromAddress = hydra.pub.key(0).address;
   const userOperation = UserOperation.delete(new DomainName(domain));
+
+  console.log(`Gas address is ${fromAddress}`);
 
   const api = await Layer1.createApi(networkConfig);
   const txId = await api.sendCoeusTx(fromAddress, [userOperation], hydraPrivate);
 
-  console.log(`Register tx sent. Tx ID: ${txId}`);
+  console.log(`Delete txn sent, id: ${txId}`);
 };

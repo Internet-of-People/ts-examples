@@ -8,10 +8,12 @@ export const vaultLoadAndDump = async(path: string): Promise<void> => {
   console.log(`- Path: ${path}`);
   const serialized = await fs.readFile(path, { encoding: 'utf-8' });
   const vault = Crypto.Vault.load(JSON.parse(serialized));
+
   try {
-    Crypto.MorpheusPlugin.rewind(vault, unlockPassword);
+    Crypto.MorpheusPlugin.init(vault, unlockPassword);
+  } catch (_) {
+    /* No problem if it was already initialized */
   }
-  catch(_){}
 
   const morpheusPlugin = Crypto.MorpheusPlugin.get(vault);
   const kind = morpheusPlugin.pub.personas;

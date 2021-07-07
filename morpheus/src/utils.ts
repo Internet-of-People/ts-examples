@@ -1,7 +1,7 @@
 import { Crypto, getHostByNetwork, Network, NetworkConfig } from '@internet-of-people/sdk';
 
 export const rustNetworkFromNetwork = (network: string): string => {
-  switch(network) {
+  switch (network) {
     case 'local-testnet':
       return Crypto.Coin.Hydra.Testnet;
     case 'testnet':
@@ -16,7 +16,7 @@ export const rustNetworkFromNetwork = (network: string): string => {
 };
 
 export const networkConfigFromNetwork = (network: string): NetworkConfig => {
-  switch(network) {
+  switch (network) {
     case 'local-testnet':
       return NetworkConfig.fromUrl(getHostByNetwork(Network.LocalTestnet), 4703);
     case 'testnet':

@@ -1,9 +1,10 @@
 import { CommandLineAction, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { vaultLoadAndDump } from '../samples/vault-dump';
 import { vaultInit } from '../samples/vault-init';
+import { vaultPathParameter } from './common';
 
 export class VaultInitAction extends CommandLineAction {
-  private at!: CommandLineStringParameter;
+  private vaultPath!: CommandLineStringParameter;
 
   public constructor() {
     super({
@@ -14,19 +15,14 @@ export class VaultInitAction extends CommandLineAction {
   }
 
   protected onDefineParameters(): void {
-    this.at = this.defineStringParameter({
-      parameterLongName: '--at',
-      argumentName: 'AT',
-      description: 'The path where the vault is going to be saved.',
-      required: true,
-    });
+    this.vaultPath = vaultPathParameter(this);
   }
 
   protected async onExecute(): Promise<void> {
     console.log('Initializing vault with the following parameters:');
-    console.log(`At: ${this.at.value!}`);
+    console.log(`At: ${this.vaultPath.value!}`);
 
-    await vaultInit(this.at.value!);
-    await vaultLoadAndDump(this.at.value!);
+    await vaultInit(this.vaultPath.value!);
+    await vaultLoadAndDump(this.vaultPath.value!);
   }
 }

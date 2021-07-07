@@ -51,7 +51,7 @@ export class TransferAction extends CommandLineAction {
       this.network.value!,
       this.fromPassphrase.value!,
       this.toAddress.value!,
-      BigInt(this.amount.value),
+      BigInt(this.amount.value!),
     );
   }
 }

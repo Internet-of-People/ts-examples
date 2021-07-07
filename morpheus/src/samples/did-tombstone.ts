@@ -9,7 +9,7 @@ import { networkConfigFromNetwork } from '../utils';
 
 const unlockPassword = 'correct horse battery staple';
 
-export const didTombstone = async(
+export const didTombstone = async (
   network: string,
   vaultPath: string,
   didToTombstone: Crypto.Did,
@@ -33,5 +33,5 @@ export const didTombstone = async(
     .getAttempts();
 
   const id = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, gasPassphrase);
-  console.log(`Add impersonate right txn was sent, id: ${id}`);
+  console.log(`DID tombstone txn was sent, id: ${id}`);
 };

@@ -1,6 +1,6 @@
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { Crypto } from '@internet-of-people/sdk';
-import { checkIfSenderHasEnoughHydras, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
+import { authParameter, checkIfSenderHasEnoughHydras, didParameter, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
 import { keyRevoke } from '../samples/key-revoke';
 
 export class KeyRevokeAction extends CommandLineAction {
@@ -23,20 +23,8 @@ export class KeyRevokeAction extends CommandLineAction {
     this.vaultPath = vaultPathParameter(this);
     this.gasPassphrase = gasPassphraseParameter(this);
 
-    this.keyIdToRevoke = this.defineStringParameter({
-      parameterLongName: '--keyid',
-      argumentName: 'KEYID',
-      description: 'The keyid you\'d like to remove from the did.',
-      required: true,
-    });
-
-    this.didFromRevoke = this.defineStringParameter({
-      parameterLongName: '--from-did',
-      argumentName: 'FROM_DID',
-      description: 'The DID you revoke the keyid from.',
-      required: true,
-    });
-
+    this.keyIdToRevoke = authParameter(this);
+    this.didFromRevoke = didParameter(this);
     this.signerKeyId = signerKeyIdParameter(this);
     this.network = networkParameter(this);
   }

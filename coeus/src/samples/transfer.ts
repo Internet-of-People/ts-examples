@@ -13,7 +13,7 @@ export const sendTransfer = async (network: string, domain: string): Promise<voi
   // ORIGINAL OWNER
   const phrase = 'include pear escape sail spy orange cute despair witness trouble sleep torch wire burst unable brass expose fiction drift clock duck oxygen aerobic already';
   const vault = Crypto.Vault.create(phrase, 'bip39_password', unlockPassword);
-  Crypto.HydraPlugin.rewind(vault, unlockPassword, hydraParameters);
+  Crypto.HydraPlugin.init(vault, unlockPassword, hydraParameters);
 
   const hydra = Crypto.HydraPlugin.get(vault, hydraParameters);
   const hydraPrivate = hydra.priv(unlockPassword);
@@ -25,10 +25,12 @@ export const sendTransfer = async (network: string, domain: string): Promise<voi
   const userOperation = UserOperation.transfer(
     new DomainName(domain),
     Principal.publicKey(new Coeus.PublicKey(newOwnerPubKey)),
-  ); 
+  );
+
+  console.log(`Gas address is ${fromAddress} and the new domain owner key is ${newOwnerPubKey}`);
 
   const api = await Layer1.createApi(networkConfig);
   const txId = await api.sendCoeusTx(fromAddress, [userOperation], hydraPrivate);
 
-  console.log(`Transfer tx sent. Tx ID: ${txId}`);
+  console.log(`Transfer txn sent, id: ${txId}`);
 };
