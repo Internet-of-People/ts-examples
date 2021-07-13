@@ -1,11 +1,11 @@
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { Crypto } from '@internet-of-people/sdk';
-import { authParameter, checkIfSenderHasEnoughHydras, didParameter, gasPassphraseParameter, networkParameter, rightParameter, signerKeyIdParameter, vaultPathParameter } from './common';
+import { authParameter, checkIfSenderHasEnoughHydras, didParameter, unlockPasswordParameter, networkParameter, rightParameter, signerKeyIdParameter, vaultPathParameter } from './common';
 import { rightAdd } from '../samples/right-add';
 
 export class RightAddAction extends CommandLineAction {
   private vaultPath!: CommandLineStringParameter;
-  private gasPassphrase!: CommandLineStringParameter;
+  private unlockPassword!: CommandLineStringParameter;
   private authToAdd!: CommandLineStringParameter;
   private toDid!: CommandLineStringParameter;
   private right!: CommandLineChoiceParameter;
@@ -22,8 +22,7 @@ export class RightAddAction extends CommandLineAction {
 
   protected onDefineParameters(): void {
     this.vaultPath = vaultPathParameter(this);
-    this.gasPassphrase = gasPassphraseParameter(this);
-
+    this.unlockPassword = unlockPasswordParameter(this);
     this.authToAdd = authParameter(this);
     this.toDid = didParameter(this);
     this.right = rightParameter(this);
@@ -40,7 +39,7 @@ export class RightAddAction extends CommandLineAction {
     console.log(`- Right: ${this.right.value!}`);
     console.log(`- Signer KeyId: ${this.signerAuth.value!}`);
 
-    await checkIfSenderHasEnoughHydras(this.network.value!, this.gasPassphrase.value!);
+    await checkIfSenderHasEnoughHydras(this.network.value!, this.vaultPath.value!);
     await rightAdd(
       this.network.value!,
       this.vaultPath.value!,
@@ -48,7 +47,7 @@ export class RightAddAction extends CommandLineAction {
       new Crypto.Did(this.toDid.value!),
       Crypto.authenticationFromData(this.signerAuth.value!),
       this.right.value!,
-      this.gasPassphrase.value!,
+      this.unlockPassword.value!,
     );
   }
 }

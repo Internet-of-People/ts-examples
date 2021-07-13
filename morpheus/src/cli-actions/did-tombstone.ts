@@ -1,11 +1,11 @@
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { Crypto } from '@internet-of-people/sdk';
-import { checkIfSenderHasEnoughHydras, didParameter, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
+import { checkIfSenderHasEnoughHydras, didParameter, unlockPasswordParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
 import { didTombstone } from '../samples/did-tombstone';
 
 export class DidTombstoneAction extends CommandLineAction {
   private vaultPath!: CommandLineStringParameter;
-  private gasPassphrase!: CommandLineStringParameter;
+  private unlockPassword!: CommandLineStringParameter;
   private didToTombstone!: CommandLineStringParameter;
   private signerKeyId!: CommandLineStringParameter;
   private network!: CommandLineChoiceParameter;
@@ -20,7 +20,7 @@ export class DidTombstoneAction extends CommandLineAction {
 
   protected onDefineParameters(): void {
     this.vaultPath = vaultPathParameter(this);
-    this.gasPassphrase = gasPassphraseParameter(this);
+    this.unlockPassword = unlockPasswordParameter(this);
     this.didToTombstone = didParameter(this);
     this.signerKeyId = signerKeyIdParameter(this);
     this.network = networkParameter(this);
@@ -32,14 +32,13 @@ export class DidTombstoneAction extends CommandLineAction {
     console.log(`- Vault Path: ${this.vaultPath.value!}`);
     console.log(`- DID to tombstone: ${this.didToTombstone.value!}`);
     console.log(`- Signer KeyId: ${this.signerKeyId.value!}`);
-
-    await checkIfSenderHasEnoughHydras(this.network.value!, this.gasPassphrase.value!);
+    await checkIfSenderHasEnoughHydras(this.network.value!, this.vaultPath.value!);
     await didTombstone(
       this.network.value!,
       this.vaultPath.value!,
       new Crypto.Did(this.didToTombstone.value!),
       Crypto.authenticationFromData(this.signerKeyId.value!),
-      this.gasPassphrase.value!,
+      this.unlockPassword.value!,
     );
   }
 }

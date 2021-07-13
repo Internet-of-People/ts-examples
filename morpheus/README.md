@@ -42,38 +42,38 @@ We recommend to follow these steps to discover how the SSI SDK really works.
 
 ### Network Selection
 
-By default all commands connects to a local test node. You can overwrite it with `--network=[testnet|devnet|mainnet]` parameter;
+By default all commands connects to a testnet node. You can overwrite it with `--network=[local-testnet|devnet|mainnet]` parameter;
 
 ## Available Commands
 
 ### Init Vault
 
 ```bash
-$ ./morpheus.sh vault-init --at="/home/marvin/vault.dat"
+$ ./morpheus.sh vault-init --vault-path="~/vault.dat" --unlock-password="YOUR_PASSWORD"
 ```
 
 ### Dump Vault
 
 ```bash
-$ ./morpheus.sh vault-dump --at="/home/marvin/vault.dat"
+$ ./morpheus.sh vault-dump --vault-path="~/vault.dat"
 ```
 
 ### Create DID
 
 ```bash
-$ ./morpheus.sh did-create --vault-path="/home/marvin/vault.dat"
+$ ./morpheus.sh did-create --vault-path="~/vault.dat" --unlock-password="YOUR_PASSWORD"
 ```
 
 ### Transfer HYD
 
 ```bash
-$ ./morpheus.sh transfer --from-passphrase="YOUR_PASSPHRASE" --to="tYkupfpnXHR9xtvWowscsWhyxvJLafb8ik" --amount=10
+$ ./morpheus.sh transfer --vault-path="~/vault.dat" --unlock-password="YOUR_PASSWORD" --to="tmaw6nAhMGMEGyKBNPKZdtyBBxh9K5qw1S" --amount=10
 ```
 
 ### Register Proof of Existence
 
 ```bash
-$ ./morpheus.sh poe-register --content-id="cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu2nKwH9gdr1AiFa" --gas-passphrase="YOUR_PASSPHRASE"
+$ ./morpheus.sh poe-register --vault-path="~/vault.dat" --unlock-password="YOUR_PASSWORD" --content-id="cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu2nKwH9gdr1AiFa" 
 ```
 
 ### Query Proof of Existence
@@ -91,29 +91,29 @@ $ ./morpheus.sh poe-query-history --content-id="cju9BJweQhnkQ52NkeoEcKvZP_EjZ5lu
 ### Add Key to a DID
 
 ```bash
-$ ./morpheus.sh key-add --vault-path="/home/marvin/vault.dat" --gas-passphrase="YOUR_PASSPHRASE" --keyid="iezxjqMH7vT8b8WFuKNSosYjo" --to-did="did:morpheus:ezqztJ6XX6GDxdSgdiySiT3J" --signer-keyid="iezqztJ6XX6GDxdSgdiySiT3J"
+$ ./morpheus.sh key-add --vault-path="~/vault.dat" --unlock-password="YOUR_PASSWORD" --keyid="iez22NLTaxVhYV1jfECpMCA6bR" --did="did:morpheus:ezue9r5y1Y41UZdrzM4rmdEc" --signer-keyid="iezue9r5y1Y41UZdrzM4rmdEc"
 ```
 
 ### Revoke Key From a DID
 
 ```bash
-$ ./morpheus.sh key-revoke --vault-path="/home/marvin/vault.dat" --gas-passphrase="YOUR_PASSPHRASE" --keyid="iezxjqMH7vT8b8WFuKNSosYjo" --from-did="did:morpheus:ezqztJ6XX6GDxdSgdiySiT3J" --signer-keyid="iezqztJ6XX6GDxdSgdiySiT3J"
+$ ./morpheus.sh key-revoke --vault-path="~/vault.dat" --unlock-password="YOUR_PASSWORD" --keyid="iez22NLTaxVhYV1jfECpMCA6bR" --did="did:morpheus:ezue9r5y1Y41UZdrzM4rmdEc" --signer-keyid="iezue9r5y1Y41UZdrzM4rmdEc"
 ```
 
 ### Add Right to a Key
 
 ```bash
-$ ./morpheus.sh right-add --vault-path="/home/marvin/vault.dat" --gas-passphrase="YOUR_PASSPHRASE" --keyid="iezxjqMH7vT8b8WFuKNSosYjo" --on-did="did:morpheus:ezqztJ6XX6GDxdSgdiySiT3J" --signer-keyid="iezqztJ6XX6GDxdSgdiySiT3J"
+$ ./morpheus.sh right-add --vault-path="~/vault.dat" --unlock-password="YOUR_PASSWORD" --keyid="iez22NLTaxVhYV1jfECpMCA6bR" --did="did:morpheus:ezue9r5y1Y41UZdrzM4rmdEc" --signer-keyid="iezue9r5y1Y41UZdrzM4rmdEc" --right="impersonate"
 ```
 
 ### Revoke Right from a Key
 
 ```bash
-$ ./morpheus.sh right-revoke --vault-path="/home/marvin/vault.dat" --gas-passphrase="YOUR_PASSPHRASE" --keyid="iezxjqMH7vT8b8WFuKNSosYjo" --on-did="did:morpheus:ezqztJ6XX6GDxdSgdiySiT3J" --signer-keyid="iezqztJ6XX6GDxdSgdiySiT3J"
+$ ./morpheus.sh right-revoke --vault-path="~/vault.dat" --unlock-password="YOUR_PASSWORD" --keyid="iez22NLTaxVhYV1jfECpMCA6bR" --did="did:morpheus:ezue9r5y1Y41UZdrzM4rmdEc" --signer-keyid="iezue9r5y1Y41UZdrzM4rmdEc" --right="impersonate"
 ```
 
 ### Tombstone DID
 
 ```bash
-$ ./morpheus.sh did-tombstone --vault-path="/home/marvin/vault.dat" --gas-passphrase="YOUR_PASSPHRASE" --did="did:morpheus:ezqztJ6XX6GDxdSgdiySiT3J" --signer-keyid="iezqztJ6XX6GDxdSgdiySiT3J"
+$ ./morpheus.sh did-tombstone --vault-path="~/vault.dat" --unlock-password="YOUR_PASSWORD" --did="did:morpheus:ezue9r5y1Y41UZdrzM4rmdEc" --signer-keyid="iezue9r5y1Y41UZdrzM4rmdEc"
 ```

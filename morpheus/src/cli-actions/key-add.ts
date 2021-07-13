@@ -1,11 +1,11 @@
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineIntegerParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { Crypto } from '@internet-of-people/sdk';
 import { keyAdd } from '../samples/key-add';
-import { authParameter, checkIfSenderHasEnoughHydras, didParameter, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
+import { authParameter, checkIfSenderHasEnoughHydras, didParameter, unlockPasswordParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
 
 export class KeyAddAction extends CommandLineAction {
   private vaultPath!: CommandLineStringParameter;
-  private gasPassphrase!: CommandLineStringParameter;
+  private unlockPassword!: CommandLineStringParameter;
   private keyIdToAdd!: CommandLineStringParameter;
   private didToAdd!: CommandLineStringParameter;
   private signerKeyId!: CommandLineStringParameter;
@@ -22,7 +22,7 @@ export class KeyAddAction extends CommandLineAction {
 
   protected onDefineParameters(): void {
     this.vaultPath = vaultPathParameter(this);
-    this.gasPassphrase = gasPassphraseParameter(this);
+    this.unlockPassword = unlockPasswordParameter(this);
     this.keyIdToAdd = authParameter(this);
     this.didToAdd = didParameter(this);
     this.signerKeyId = signerKeyIdParameter(this);
@@ -43,8 +43,8 @@ export class KeyAddAction extends CommandLineAction {
     console.log(`- DID: ${this.didToAdd.value!}`);
     console.log(`- Signer KeyId: ${this.signerKeyId.value!}`);
     console.log(`- Expires at Height: ${this.expiresAtHeight.value!}`);
-
-    await checkIfSenderHasEnoughHydras(this.network.value!, this.gasPassphrase.value!);
+    
+    await checkIfSenderHasEnoughHydras(this.network.value!, this.vaultPath.value!);
     await keyAdd(
       this.network.value!,
       this.vaultPath.value!,
@@ -52,7 +52,7 @@ export class KeyAddAction extends CommandLineAction {
       new Crypto.Did(this.didToAdd.value!),
       Crypto.authenticationFromData(this.signerKeyId.value!),
       this.expiresAtHeight.value!,
-      this.gasPassphrase.value!,
+      this.unlockPassword.value!,
     );
   }
 }

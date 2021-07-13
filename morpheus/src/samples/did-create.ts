@@ -1,11 +1,9 @@
 import { promises as fs } from 'fs';
 import { Crypto } from '@internet-of-people/sdk';
+import { loadVaultFromFile } from '../utils';
 
-const unlockPassword = 'correct horse battery staple';
-
-export const didCreate = async (vaultPath: string): Promise<void> => {
-  const serializedVault = await fs.readFile(vaultPath, { encoding: 'utf-8' });
-  const vault = Crypto.Vault.load(JSON.parse(serializedVault));
+export const didCreate = async (vaultPath: string, unlockPassword: string): Promise<void> => {
+  const vault = await loadVaultFromFile(vaultPath);
 
   const morpheusPlugin = Crypto.MorpheusPlugin.get(vault);
   const priv = morpheusPlugin.priv(unlockPassword);

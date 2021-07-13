@@ -1,9 +1,10 @@
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineIntegerParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { sendTransfer } from '../samples/transfer';
-import { networkParameter } from './common';
+import { networkParameter, unlockPasswordParameter, vaultPathParameter } from './common';
 
 export class TransferAction extends CommandLineAction {
-  private fromPassphrase!: CommandLineStringParameter;
+  private vaultPath!: CommandLineStringParameter;
+  private unlockPassword!: CommandLineStringParameter;
   private toAddress!: CommandLineStringParameter;
   private amount!: CommandLineIntegerParameter;
   private network!: CommandLineChoiceParameter;
@@ -17,12 +18,8 @@ export class TransferAction extends CommandLineAction {
   }
 
   protected onDefineParameters(): void {
-    this.fromPassphrase = this.defineStringParameter({
-      parameterLongName: '--from-passphrase',
-      argumentName: 'FROM_PASSPHRASE',
-      description: 'The wallet\'s passphrase from which you want to send the HYDs.',
-      required: true,
-    });
+    this.vaultPath = vaultPathParameter(this);
+    this.unlockPassword = unlockPasswordParameter(this);
 
     this.toAddress = this.defineStringParameter({
       parameterLongName: '--to',
@@ -43,13 +40,14 @@ export class TransferAction extends CommandLineAction {
   protected async onExecute(): Promise<void> {
     console.log('Sending transfer with the following parameters:');
     console.log(`- Network: ${this.network.value!}`);
-    console.log(`- From: ${this.fromPassphrase.value!}`);
+    console.log(`- Vault Path: ${this.vaultPath.value!}`);
     console.log(`- To: ${this.toAddress.value!}`);
     console.log(`- Amount: ${this.amount.value!} HYD`);
 
     await sendTransfer(
+      this.vaultPath.value!,
       this.network.value!,
-      this.fromPassphrase.value!,
+      this.unlockPassword.value!,
       this.toAddress.value!,
       BigInt(this.amount.value!),
     );

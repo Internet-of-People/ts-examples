@@ -1,12 +1,12 @@
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { Crypto } from '@internet-of-people/sdk';
-import { authParameter, checkIfSenderHasEnoughHydras, didParameter, gasPassphraseParameter, networkParameter, rightParameter, signerKeyIdParameter, vaultPathParameter } from './common';
+import { authParameter, checkIfSenderHasEnoughHydras, didParameter, unlockPasswordParameter, networkParameter, rightParameter, signerKeyIdParameter, vaultPathParameter } from './common';
 import { rightRevoke } from '../samples/right-revoke';
 
 export class RightRevokeAction extends CommandLineAction {
   private vaultPath!: CommandLineStringParameter;
-  private gasPassphrase!: CommandLineStringParameter;
-  private authToAdd!: CommandLineStringParameter;
+  private unlockPassword!: CommandLineStringParameter;
+  private authToRevoke!: CommandLineStringParameter;
   private toDid!: CommandLineStringParameter;
   private signerKeyId!: CommandLineStringParameter;
   private right!: CommandLineChoiceParameter;
@@ -22,8 +22,8 @@ export class RightRevokeAction extends CommandLineAction {
 
   protected onDefineParameters(): void {
     this.vaultPath = vaultPathParameter(this);
-    this.gasPassphrase = gasPassphraseParameter(this);
-    this.authToAdd = authParameter(this);
+    this.unlockPassword = unlockPasswordParameter(this);
+    this.authToRevoke = authParameter(this);
     this.toDid = didParameter(this);
     this.right = rightParameter(this);
     this.signerKeyId = signerKeyIdParameter(this);
@@ -34,19 +34,19 @@ export class RightRevokeAction extends CommandLineAction {
     console.log('Sending revoke right transaction with the following parameters:');
     console.log(`- Network: ${this.network.value!}`);
     console.log(`- Vault Path: ${this.vaultPath.value!}`);
-    console.log(`- KeyId to revoke: ${this.authToAdd.value!}`);
+    console.log(`- KeyId to revoke: ${this.authToRevoke.value!}`);
     console.log(`- DID: ${this.toDid.value!}`);
     console.log(`- Signer KeyId: ${this.signerKeyId.value!}`);
 
-    await checkIfSenderHasEnoughHydras(this.network.value!, this.gasPassphrase.value!);
+    await checkIfSenderHasEnoughHydras(this.network.value!, this.vaultPath.value!);
     await rightRevoke(
       this.network.value!,
       this.vaultPath.value!,
-      Crypto.authenticationFromData(this.authToAdd.value!),
+      Crypto.authenticationFromData(this.authToRevoke.value!),
       new Crypto.Did(this.toDid.value!),
       Crypto.authenticationFromData(this.signerKeyId.value!),
       this.right.value!,
-      this.gasPassphrase.value!,
+      this.unlockPassword.value!,
     );
   }
 }

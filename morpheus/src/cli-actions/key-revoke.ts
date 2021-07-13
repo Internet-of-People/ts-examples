@@ -1,11 +1,11 @@
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
 import { Crypto } from '@internet-of-people/sdk';
-import { authParameter, checkIfSenderHasEnoughHydras, didParameter, gasPassphraseParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
+import { authParameter, checkIfSenderHasEnoughHydras, didParameter, unlockPasswordParameter, networkParameter, signerKeyIdParameter, vaultPathParameter } from './common';
 import { keyRevoke } from '../samples/key-revoke';
 
 export class KeyRevokeAction extends CommandLineAction {
   private vaultPath!: CommandLineStringParameter;
-  private gasPassphrase!: CommandLineStringParameter;
+  private unlockPassword!: CommandLineStringParameter;
   private keyIdToRevoke!: CommandLineStringParameter;
   private didFromRevoke!: CommandLineStringParameter;
   private signerKeyId!: CommandLineStringParameter;
@@ -21,7 +21,7 @@ export class KeyRevokeAction extends CommandLineAction {
 
   protected onDefineParameters(): void {
     this.vaultPath = vaultPathParameter(this);
-    this.gasPassphrase = gasPassphraseParameter(this);
+    this.unlockPassword = unlockPasswordParameter(this);
 
     this.keyIdToRevoke = authParameter(this);
     this.didFromRevoke = didParameter(this);
@@ -37,14 +37,14 @@ export class KeyRevokeAction extends CommandLineAction {
     console.log(`- DID: ${this.didFromRevoke.value!}`);
     console.log(`- Signer KeyId: ${this.signerKeyId.value!}`);
 
-    await checkIfSenderHasEnoughHydras(this.network.value!, this.gasPassphrase.value!);
+    await checkIfSenderHasEnoughHydras(this.network.value!, this.vaultPath.value!);
     await keyRevoke(
       this.network.value!,
       this.vaultPath.value!,
       Crypto.authenticationFromData(this.keyIdToRevoke.value!),
       new Crypto.Did(this.didFromRevoke.value!),
       Crypto.authenticationFromData(this.signerKeyId.value!),
-      this.gasPassphrase.value!,
+      this.unlockPassword.value!,
     );
   }
 }

@@ -1,4 +1,10 @@
 import { Crypto, getHostByNetwork, Network, NetworkConfig } from '@internet-of-people/sdk';
+import { promises as fs } from 'fs';
+
+export async function loadVaultFromFile(vaultPath: string): Promise<Crypto.Vault> {
+  const serializedVault = await fs.readFile(vaultPath, { encoding: 'utf-8' });
+  return Crypto.Vault.load(JSON.parse(serializedVault));
+}
 
 export const rustNetworkFromNetwork = (network: string): string => {
   switch (network) {

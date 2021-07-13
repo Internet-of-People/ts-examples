@@ -1,30 +1,30 @@
-import { Identities } from '@arkecosystem/crypto';
-// import { Crypto, Layer1 } from '@internet-of-people/sdk';
-import { Layer1 } from '@internet-of-people/sdk';
+import { Crypto, Layer1 } from '@internet-of-people/sdk';
 import { CommandLineAction, CommandLineChoiceParameter, CommandLineStringParameter } from '@rushstack/ts-command-line';
-// import { networkConfigFromNetwork, rustNetworkFromNetwork } from '../utils';
-import { networkConfigFromNetwork } from '../utils';
+import { loadVaultFromFile, networkConfigFromNetwork, rustNetworkFromNetwork } from '../utils';
 
-export const checkIfSenderHasEnoughHydras = async (network: string, passphrase: string): Promise<void> => {
+export const checkIfSenderHasEnoughHydras = async (network: string, vaultPath: string): Promise<void> => {
   const networkConfig = networkConfigFromNetwork(network);
-  // const rustNetwork = rustNetworkFromNetwork(network);
+  const rustNetwork = rustNetworkFromNetwork(network);
+
+  const vault = await loadVaultFromFile(vaultPath);
+  const hydraParameters = new Crypto.HydraParameters(rustNetwork, 0);
+  const hydraPublic = Crypto.HydraPlugin.get(vault, hydraParameters);
+  const senderAddress = hydraPublic.pub.key(0).address;
+
   const api = await Layer1.createApi(networkConfig);
-  // const sk = Crypto.SecpPrivateKey.fromArkPassphrase(passphrase);
-  // const address = sk.publicKey().arkKeyId().toAddress(rustNetwork);
-  const address = Identities.Address.fromPassphrase(passphrase);
-  const balance = await api.getWalletBalance(address);
+  const balance = await api.getWalletBalance(senderAddress);
 
   if (balance < BigInt(1e8)) {
-    throw new Error(`${address} does not have enough HYD to send a transaction. It has: ${balance} Flakes`);
+    throw new Error(`${senderAddress} does not have enough HYD to send a transaction. It has: ${balance} Flakes`);
   }
 };
 
-export const gasPassphraseParameter = (ref: CommandLineAction): CommandLineStringParameter => {
+export const unlockPasswordParameter = (ref: CommandLineAction): CommandLineStringParameter => {
   return ref.defineStringParameter({
-    parameterLongName: '--gas-passphrase',
-    parameterShortName: '-g',
-    argumentName: 'GAS_PASSPHRASE',
-    description: 'The wallet that pays for the blockchain transaction.',
+    parameterLongName: '--unlock-password',
+    parameterShortName: '-p',
+    argumentName: 'UNLOCK_PASSWORD',
+    description: 'The password that unlocks the vault for signing and sending the morpheus transaction',
     required: true,
   });
 };
@@ -56,7 +56,7 @@ export const networkParameter = (ref: CommandLineAction): CommandLineChoiceParam
     alternatives: ['local-testnet', 'testnet', 'devnet', 'mainnet'],
     description: 'The network you would like to run against the script.',
     required: false,
-    defaultValue: 'local-testnet',
+    defaultValue: 'testnet',
   });
 };
 
@@ -65,7 +65,7 @@ export const authParameter = (ref: CommandLineAction): CommandLineStringParamete
     parameterLongName: '--keyid',
     parameterShortName: '-i',
     argumentName: 'KEYID',
-    description: 'The keyid (or public key) you\'d like to act on this DID.',
+    description: 'The keyid (or public key) with which you\'d like to act on a DID.',
     required: true,
   });
 };

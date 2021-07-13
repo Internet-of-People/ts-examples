@@ -42,6 +42,6 @@ export const networkParameter = (ref: CommandLineAction): CommandLineChoiceParam
     alternatives: [ 'local-testnet', 'testnet', 'devnet', 'mainnet' ],
     description: 'The network you would like to run against the script.',
     required: false,
-    defaultValue: 'local-testnet'
+    defaultValue: 'testnet'
   });
 };

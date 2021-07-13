@@ -28,7 +28,7 @@ $ ./coeus.sh ACTION ACTION_PARAMETERS
 
 ### Network Selection
 
-By default all commands connects to a local test node. You can overwrite it with `--network=[testnet|devnet|mainnet]` parameter;
+By default all commands connects to a testnet node. You can overwrite it with `--network=[local-testnet|devnet|mainnet]` parameter;
 
 ### Used Addresses
 
