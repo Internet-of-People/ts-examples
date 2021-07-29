@@ -4,13 +4,13 @@ This repository contains example codes how can IOP DNS be used.  Also, you can e
 
 ## Requirements
 
-- NodeJS 12
+- NodeJS 12+
 - A running Hydra node. It can be local, testnet/devnet/mainnet.
 
 ## Install & Build
 
 ```bash
-$ npm install
+$ npm ci
 $ npm run build
 ```
 

@@ -6,13 +6,13 @@ The `src/samples` contains the actual code you'll need in your application, whil
 
 ## Requirements
 
-- NodeJS 12
+- NodeJS 12+
 - A running Hydra node. It can be local, testnet/devnet/mainnet.
 
 ## Install & Build
 
 ```bash
-$ npm install
+$ npm ci
 $ npm run build
 ```
 

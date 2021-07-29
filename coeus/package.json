@@ -1,6 +1,6 @@
 {
   "name": "@internet-of-people/ts-examples-coeus",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "private": true,
   "author": {
     "url": "https://iop.global/dsf",
@@ -18,7 +18,7 @@
     "clean": "rimraf dist && rimraf node_modules"
   },
   "dependencies": {
-    "@internet-of-people/sdk": "5.0.0-rc.2",
+    "@internet-of-people/sdk": "5.0.1",
     "@rushstack/ts-command-line": "4.7.3"
   },
   "devDependencies": {
