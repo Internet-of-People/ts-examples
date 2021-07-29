@@ -2,9 +2,34 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.0.0](https://github.com/Internet-of-People/ts-examples/compare/1.1.2..2.0.0)
+
+- use red carpet methods everywhere [`4cc95ac`](https://github.com/Internet-of-People/ts-examples/commit/4cc95acabd78e59ffd750fd31ff37be45cf9bd33)
+- Upgraded to IOP SDK 5.0 plus some cleanup [`d59098a`](https://github.com/Internet-of-People/ts-examples/commit/d59098ae9c686abd9ccd0090b9226d2cf54bd3f5)
+- Add coeus red carpet methods [`884b42b`](https://github.com/Internet-of-People/ts-examples/commit/884b42bf6a47aef7e74afcd2484caf44e4fe408c)
+- Use the latest, 5.0.1 IOP SDK [`2baa0e7`](https://github.com/Internet-of-People/ts-examples/commit/2baa0e714839a0297affd2b6bd5a1e911a54a44d)
+- Release 4.0.3 [`6b2be18`](https://github.com/Internet-of-People/ts-examples/commit/6b2be1857bb5f7ec4286ebf5a1d7ee8410a673e3)
+- Use SDK 4.0.3 [`1824b9e`](https://github.com/Internet-of-People/ts-examples/commit/1824b9e01d2035d65bb5e15bd8bb63dfc317bca6)
+- Bump IOP SDK to 4.0.5 [`5c8bc5f`](https://github.com/Internet-of-People/ts-examples/commit/5c8bc5f677c4a3cfa1234a0d7d58805de3c5316d)
+- Add release.sh [`9e25440`](https://github.com/Internet-of-People/ts-examples/commit/9e254409204c195c8cadf18b69dc361e4543dace)
+- minor fixes [`94b3a4b`](https://github.com/Internet-of-People/ts-examples/commit/94b3a4b4c3c01e1857bbf3dc84fbac5f9cb5440d)
+- Change owner's domain [`d8fed09`](https://github.com/Internet-of-People/ts-examples/commit/d8fed0930ff9b9de515206e4dfcd3eb4a6f1a37f)
+- Fixed vault creation [`3c3e39d`](https://github.com/Internet-of-People/ts-examples/commit/3c3e39d122559196e050e040001a368f78f832b3)
+
+#### [1.1.2](https://github.com/Internet-of-People/ts-examples/compare/1.1.1..1.1.2)
+
+> 17 November 2020
+
+- Adding release script [`971092c`](https://github.com/Internet-of-People/ts-examples/commit/971092ccb7928824bc05a76ce22f6f9090f17d9b)
+- Release 1.1.2 [`65a9def`](https://github.com/Internet-of-People/ts-examples/commit/65a9def5730f97db0fc8815a364615f6af578afa)
+- x [`a1cb497`](https://github.com/Internet-of-People/ts-examples/commit/a1cb4977bc2536025d2e2ecd2a6b01fcfebd6692)
+
 #### [1.1.1](https://github.com/Internet-of-People/ts-examples/compare/1.1.0..1.1.1)
 
+> 16 November 2020
+
 - Removing automation for now [`73fbc04`](https://github.com/Internet-of-People/ts-examples/commit/73fbc04e218bd3d53952c936d9af6f00ae528117)
+- Release 1.1.1 [`eaac824`](https://github.com/Internet-of-People/ts-examples/commit/eaac824be61aa829a28773926ddf69cbd25c9e57)
 
 #### [1.1.0](https://github.com/Internet-of-People/ts-examples/compare/1.0.1..1.1.0)
 
