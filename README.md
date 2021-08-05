@@ -6,4 +6,4 @@ Please read the `coeus` and/or `morpheus` directories' README to get more inform
 
 ## Check also
 
-Please read about maintainers, contribution contract at <https://github.com/Internet-of-People/morpheus-ts>
+Please read about maintainers and contribution contract at <https://github.com/Internet-of-People/iop-ts>
